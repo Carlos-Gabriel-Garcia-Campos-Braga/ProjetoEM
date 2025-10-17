@@ -1,0 +1,99 @@
+C:\Users\Escolar Manager\Desktop\ProjetoEM\ProjetoEM\ProjetoEM\bin\Debug\net8.0\appsettings.Development.json
+C:\Users\Escolar Manager\Desktop\ProjetoEM\ProjetoEM\ProjetoEM\bin\Debug\net8.0\appsettings.json
+C:\Users\Escolar Manager\Desktop\ProjetoEM\ProjetoEM\ProjetoEM\bin\Debug\net8.0\ProjetoEM.staticwebassets.runtime.json
+C:\Users\Escolar Manager\Desktop\ProjetoEM\ProjetoEM\ProjetoEM\bin\Debug\net8.0\ProjetoEM.staticwebassets.endpoints.json
+C:\Users\Escolar Manager\Desktop\ProjetoEM\ProjetoEM\ProjetoEM\bin\Debug\net8.0\ProjetoEM.exe
+C:\Users\Escolar Manager\Desktop\ProjetoEM\ProjetoEM\ProjetoEM\bin\Debug\net8.0\ProjetoEM.deps.json
+C:\Users\Escolar Manager\Desktop\ProjetoEM\ProjetoEM\ProjetoEM\bin\Debug\net8.0\ProjetoEM.runtimeconfig.json
+C:\Users\Escolar Manager\Desktop\ProjetoEM\ProjetoEM\ProjetoEM\bin\Debug\net8.0\ProjetoEM.dll
+C:\Users\Escolar Manager\Desktop\ProjetoEM\ProjetoEM\ProjetoEM\bin\Debug\net8.0\ProjetoEM.pdb
+C:\Users\Escolar Manager\Desktop\ProjetoEM\ProjetoEM\ProjetoEM\obj\Debug\net8.0\rpswa.dswa.cache.json
+C:\Users\Escolar Manager\Desktop\ProjetoEM\ProjetoEM\ProjetoEM\obj\Debug\net8.0\ProjetoEM.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Escolar Manager\Desktop\ProjetoEM\ProjetoEM\ProjetoEM\obj\Debug\net8.0\ProjetoEM.AssemblyInfoInputs.cache
+C:\Users\Escolar Manager\Desktop\ProjetoEM\ProjetoEM\ProjetoEM\obj\Debug\net8.0\ProjetoEM.AssemblyInfo.cs
+C:\Users\Escolar Manager\Desktop\ProjetoEM\ProjetoEM\ProjetoEM\obj\Debug\net8.0\ProjetoEM.csproj.CoreCompileInputs.cache
+C:\Users\Escolar Manager\Desktop\ProjetoEM\ProjetoEM\ProjetoEM\obj\Debug\net8.0\ProjetoEM.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\Escolar Manager\Desktop\ProjetoEM\ProjetoEM\ProjetoEM\obj\Debug\net8.0\ProjetoEM.RazorAssemblyInfo.cache
+C:\Users\Escolar Manager\Desktop\ProjetoEM\ProjetoEM\ProjetoEM\obj\Debug\net8.0\ProjetoEM.RazorAssemblyInfo.cs
+C:\Users\Escolar Manager\Desktop\ProjetoEM\ProjetoEM\ProjetoEM\obj\Debug\net8.0\rjimswa.dswa.cache.json
+C:\Users\Escolar Manager\Desktop\ProjetoEM\ProjetoEM\ProjetoEM\obj\Debug\net8.0\rjsmrazor.dswa.cache.json
+C:\Users\Escolar Manager\Desktop\ProjetoEM\ProjetoEM\ProjetoEM\obj\Debug\net8.0\rjsmcshtml.dswa.cache.json
+C:\Users\Escolar Manager\Desktop\ProjetoEM\ProjetoEM\ProjetoEM\obj\Debug\net8.0\scopedcss\Views\Shared\_Layout.cshtml.rz.scp.css
+C:\Users\Escolar Manager\Desktop\ProjetoEM\ProjetoEM\ProjetoEM\obj\Debug\net8.0\scopedcss\bundle\ProjetoEM.styles.css
+C:\Users\Escolar Manager\Desktop\ProjetoEM\ProjetoEM\ProjetoEM\obj\Debug\net8.0\scopedcss\projectbundle\ProjetoEM.bundle.scp.css
+C:\Users\Escolar Manager\Desktop\ProjetoEM\ProjetoEM\ProjetoEM\obj\Debug\net8.0\staticwebassets.build.json
+C:\Users\Escolar Manager\Desktop\ProjetoEM\ProjetoEM\ProjetoEM\obj\Debug\net8.0\staticwebassets.build.json.cache
+C:\Users\Escolar Manager\Desktop\ProjetoEM\ProjetoEM\ProjetoEM\obj\Debug\net8.0\staticwebassets.development.json
+C:\Users\Escolar Manager\Desktop\ProjetoEM\ProjetoEM\ProjetoEM\obj\Debug\net8.0\staticwebassets.build.endpoints.json
+C:\Users\Escolar Manager\Desktop\ProjetoEM\ProjetoEM\ProjetoEM\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
+C:\Users\Escolar Manager\Desktop\ProjetoEM\ProjetoEM\ProjetoEM\obj\Debug\net8.0\ProjetoEM.dll
+C:\Users\Escolar Manager\Desktop\ProjetoEM\ProjetoEM\ProjetoEM\obj\Debug\net8.0\refint\ProjetoEM.dll
+C:\Users\Escolar Manager\Desktop\ProjetoEM\ProjetoEM\ProjetoEM\obj\Debug\net8.0\ProjetoEM.pdb
+C:\Users\Escolar Manager\Desktop\ProjetoEM\ProjetoEM\ProjetoEM\obj\Debug\net8.0\ProjetoEM.genruntimeconfig.cache
+C:\Users\Escolar Manager\Desktop\ProjetoEM\ProjetoEM\ProjetoEM\obj\Debug\net8.0\ref\ProjetoEM.dll
+C:\Users\carlo\Desktop\PC\Projeto\ProjetoEM\ProjetoEM\ProjetoEM\bin\Debug\net8.0\appsettings.Development.json
+C:\Users\carlo\Desktop\PC\Projeto\ProjetoEM\ProjetoEM\ProjetoEM\bin\Debug\net8.0\appsettings.json
+C:\Users\carlo\Desktop\PC\Projeto\ProjetoEM\ProjetoEM\ProjetoEM\bin\Debug\net8.0\ProjetoEM.staticwebassets.runtime.json
+C:\Users\carlo\Desktop\PC\Projeto\ProjetoEM\ProjetoEM\ProjetoEM\bin\Debug\net8.0\ProjetoEM.staticwebassets.endpoints.json
+C:\Users\carlo\Desktop\PC\Projeto\ProjetoEM\ProjetoEM\ProjetoEM\bin\Debug\net8.0\ProjetoEM.exe
+C:\Users\carlo\Desktop\PC\Projeto\ProjetoEM\ProjetoEM\ProjetoEM\bin\Debug\net8.0\ProjetoEM.deps.json
+C:\Users\carlo\Desktop\PC\Projeto\ProjetoEM\ProjetoEM\ProjetoEM\bin\Debug\net8.0\ProjetoEM.runtimeconfig.json
+C:\Users\carlo\Desktop\PC\Projeto\ProjetoEM\ProjetoEM\ProjetoEM\bin\Debug\net8.0\ProjetoEM.dll
+C:\Users\carlo\Desktop\PC\Projeto\ProjetoEM\ProjetoEM\ProjetoEM\bin\Debug\net8.0\ProjetoEM.pdb
+C:\Users\carlo\Desktop\PC\Projeto\ProjetoEM\ProjetoEM\ProjetoEM\obj\Debug\net8.0\rpswa.dswa.cache.json
+C:\Users\carlo\Desktop\PC\Projeto\ProjetoEM\ProjetoEM\ProjetoEM\obj\Debug\net8.0\ProjetoEM.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\carlo\Desktop\PC\Projeto\ProjetoEM\ProjetoEM\ProjetoEM\obj\Debug\net8.0\ProjetoEM.AssemblyInfoInputs.cache
+C:\Users\carlo\Desktop\PC\Projeto\ProjetoEM\ProjetoEM\ProjetoEM\obj\Debug\net8.0\ProjetoEM.AssemblyInfo.cs
+C:\Users\carlo\Desktop\PC\Projeto\ProjetoEM\ProjetoEM\ProjetoEM\obj\Debug\net8.0\ProjetoEM.csproj.CoreCompileInputs.cache
+C:\Users\carlo\Desktop\PC\Projeto\ProjetoEM\ProjetoEM\ProjetoEM\obj\Debug\net8.0\ProjetoEM.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\carlo\Desktop\PC\Projeto\ProjetoEM\ProjetoEM\ProjetoEM\obj\Debug\net8.0\ProjetoEM.RazorAssemblyInfo.cache
+C:\Users\carlo\Desktop\PC\Projeto\ProjetoEM\ProjetoEM\ProjetoEM\obj\Debug\net8.0\ProjetoEM.RazorAssemblyInfo.cs
+C:\Users\carlo\Desktop\PC\Projeto\ProjetoEM\ProjetoEM\ProjetoEM\obj\Debug\net8.0\rjimswa.dswa.cache.json
+C:\Users\carlo\Desktop\PC\Projeto\ProjetoEM\ProjetoEM\ProjetoEM\obj\Debug\net8.0\rjsmrazor.dswa.cache.json
+C:\Users\carlo\Desktop\PC\Projeto\ProjetoEM\ProjetoEM\ProjetoEM\obj\Debug\net8.0\rjsmcshtml.dswa.cache.json
+C:\Users\carlo\Desktop\PC\Projeto\ProjetoEM\ProjetoEM\ProjetoEM\obj\Debug\net8.0\scopedcss\Views\Shared\_Layout.cshtml.rz.scp.css
+C:\Users\carlo\Desktop\PC\Projeto\ProjetoEM\ProjetoEM\ProjetoEM\obj\Debug\net8.0\scopedcss\bundle\ProjetoEM.styles.css
+C:\Users\carlo\Desktop\PC\Projeto\ProjetoEM\ProjetoEM\ProjetoEM\obj\Debug\net8.0\scopedcss\projectbundle\ProjetoEM.bundle.scp.css
+C:\Users\carlo\Desktop\PC\Projeto\ProjetoEM\ProjetoEM\ProjetoEM\obj\Debug\net8.0\staticwebassets.build.json
+C:\Users\carlo\Desktop\PC\Projeto\ProjetoEM\ProjetoEM\ProjetoEM\obj\Debug\net8.0\staticwebassets.build.json.cache
+C:\Users\carlo\Desktop\PC\Projeto\ProjetoEM\ProjetoEM\ProjetoEM\obj\Debug\net8.0\staticwebassets.development.json
+C:\Users\carlo\Desktop\PC\Projeto\ProjetoEM\ProjetoEM\ProjetoEM\obj\Debug\net8.0\staticwebassets.build.endpoints.json
+C:\Users\carlo\Desktop\PC\Projeto\ProjetoEM\ProjetoEM\ProjetoEM\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
+C:\Users\carlo\Desktop\PC\Projeto\ProjetoEM\ProjetoEM\ProjetoEM\obj\Debug\net8.0\ProjetoEM.dll
+C:\Users\carlo\Desktop\PC\Projeto\ProjetoEM\ProjetoEM\ProjetoEM\obj\Debug\net8.0\refint\ProjetoEM.dll
+C:\Users\carlo\Desktop\PC\Projeto\ProjetoEM\ProjetoEM\ProjetoEM\obj\Debug\net8.0\ProjetoEM.pdb
+C:\Users\carlo\Desktop\PC\Projeto\ProjetoEM\ProjetoEM\ProjetoEM\obj\Debug\net8.0\ProjetoEM.genruntimeconfig.cache
+C:\Users\carlo\Desktop\PC\Projeto\ProjetoEM\ProjetoEM\ProjetoEM\obj\Debug\net8.0\ref\ProjetoEM.dll
+C:\Users\carlo\Desktop\ProjetoEM\ProjetoEM\bin\Debug\net8.0\appsettings.Development.json
+C:\Users\carlo\Desktop\ProjetoEM\ProjetoEM\bin\Debug\net8.0\appsettings.json
+C:\Users\carlo\Desktop\ProjetoEM\ProjetoEM\bin\Debug\net8.0\ProjetoEM.staticwebassets.endpoints.json
+C:\Users\carlo\Desktop\ProjetoEM\ProjetoEM\bin\Debug\net8.0\ProjetoEM.staticwebassets.runtime.json
+C:\Users\carlo\Desktop\ProjetoEM\ProjetoEM\bin\Debug\net8.0\ProjetoEM.exe
+C:\Users\carlo\Desktop\ProjetoEM\ProjetoEM\bin\Debug\net8.0\ProjetoEM.deps.json
+C:\Users\carlo\Desktop\ProjetoEM\ProjetoEM\bin\Debug\net8.0\ProjetoEM.runtimeconfig.json
+C:\Users\carlo\Desktop\ProjetoEM\ProjetoEM\bin\Debug\net8.0\ProjetoEM.dll
+C:\Users\carlo\Desktop\ProjetoEM\ProjetoEM\bin\Debug\net8.0\ProjetoEM.pdb
+C:\Users\carlo\Desktop\ProjetoEM\ProjetoEM\obj\Debug\net8.0\rpswa.dswa.cache.json
+C:\Users\carlo\Desktop\ProjetoEM\ProjetoEM\obj\Debug\net8.0\ProjetoEM.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\carlo\Desktop\ProjetoEM\ProjetoEM\obj\Debug\net8.0\ProjetoEM.AssemblyInfoInputs.cache
+C:\Users\carlo\Desktop\ProjetoEM\ProjetoEM\obj\Debug\net8.0\ProjetoEM.AssemblyInfo.cs
+C:\Users\carlo\Desktop\ProjetoEM\ProjetoEM\obj\Debug\net8.0\ProjetoEM.csproj.CoreCompileInputs.cache
+C:\Users\carlo\Desktop\ProjetoEM\ProjetoEM\obj\Debug\net8.0\ProjetoEM.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\carlo\Desktop\ProjetoEM\ProjetoEM\obj\Debug\net8.0\ProjetoEM.RazorAssemblyInfo.cache
+C:\Users\carlo\Desktop\ProjetoEM\ProjetoEM\obj\Debug\net8.0\ProjetoEM.RazorAssemblyInfo.cs
+C:\Users\carlo\Desktop\ProjetoEM\ProjetoEM\obj\Debug\net8.0\rjimswa.dswa.cache.json
+C:\Users\carlo\Desktop\ProjetoEM\ProjetoEM\obj\Debug\net8.0\rjsmrazor.dswa.cache.json
+C:\Users\carlo\Desktop\ProjetoEM\ProjetoEM\obj\Debug\net8.0\rjsmcshtml.dswa.cache.json
+C:\Users\carlo\Desktop\ProjetoEM\ProjetoEM\obj\Debug\net8.0\scopedcss\Views\Shared\_Layout.cshtml.rz.scp.css
+C:\Users\carlo\Desktop\ProjetoEM\ProjetoEM\obj\Debug\net8.0\scopedcss\bundle\ProjetoEM.styles.css
+C:\Users\carlo\Desktop\ProjetoEM\ProjetoEM\obj\Debug\net8.0\scopedcss\projectbundle\ProjetoEM.bundle.scp.css
+C:\Users\carlo\Desktop\ProjetoEM\ProjetoEM\obj\Debug\net8.0\staticwebassets.build.json
+C:\Users\carlo\Desktop\ProjetoEM\ProjetoEM\obj\Debug\net8.0\staticwebassets.build.json.cache
+C:\Users\carlo\Desktop\ProjetoEM\ProjetoEM\obj\Debug\net8.0\staticwebassets.development.json
+C:\Users\carlo\Desktop\ProjetoEM\ProjetoEM\obj\Debug\net8.0\staticwebassets.build.endpoints.json
+C:\Users\carlo\Desktop\ProjetoEM\ProjetoEM\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
+C:\Users\carlo\Desktop\ProjetoEM\ProjetoEM\obj\Debug\net8.0\ProjetoEM.dll
+C:\Users\carlo\Desktop\ProjetoEM\ProjetoEM\obj\Debug\net8.0\refint\ProjetoEM.dll
+C:\Users\carlo\Desktop\ProjetoEM\ProjetoEM\obj\Debug\net8.0\ProjetoEM.pdb
+C:\Users\carlo\Desktop\ProjetoEM\ProjetoEM\obj\Debug\net8.0\ProjetoEM.genruntimeconfig.cache
+C:\Users\carlo\Desktop\ProjetoEM\ProjetoEM\obj\Debug\net8.0\ref\ProjetoEM.dll

@@ -1,0 +1,53 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\carlo\\Desktop\\ProjetoEM\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{F16342AB-9AD6-464E-944E-11F1886068D9}|ProjetoEM\\ProjetoEM.csproj|c:\\users\\carlo\\desktop\\projetoem\\projetoem\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{F16342AB-9AD6-464E-944E-11F1886068D9}|ProjetoEM\\ProjetoEM.csproj|solutionrelative:projetoem\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F16342AB-9AD6-464E-944E-11F1886068D9}|ProjetoEM\\ProjetoEM.csproj|c:\\users\\carlo\\desktop\\projetoem\\projetoem\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F16342AB-9AD6-464E-944E-11F1886068D9}|ProjetoEM\\ProjetoEM.csproj|solutionrelative:projetoem\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "HomeController.cs",
+              "DocumentMoniker": "C:\\Users\\carlo\\Desktop\\ProjetoEM\\ProjetoEM\\Controllers\\HomeController.cs",
+              "RelativeDocumentMoniker": "ProjetoEM\\Controllers\\HomeController.cs",
+              "ToolTip": "C:\\Users\\carlo\\Desktop\\ProjetoEM\\ProjetoEM\\Controllers\\HomeController.cs",
+              "RelativeToolTip": "ProjetoEM\\Controllers\\HomeController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABgAAAAaAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-16T22:03:21.269Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\carlo\\Desktop\\ProjetoEM\\ProjetoEM\\Views\\Home\\Index.cshtml",
+              "RelativeDocumentMoniker": "ProjetoEM\\Views\\Home\\Index.cshtml",
+              "ToolTip": "C:\\Users\\carlo\\Desktop\\ProjetoEM\\ProjetoEM\\Views\\Home\\Index.cshtml",
+              "RelativeToolTip": "ProjetoEM\\Views\\Home\\Index.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-10-16T21:56:47.126Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

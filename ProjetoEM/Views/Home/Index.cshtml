@@ -1,0 +1,32 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Sistema Escolar</h1>
+    <section>
+        <input placeholder="Digite o nome do aluno: " />
+    </section>
+
+    <section>
+        <input placeholder="Digite o CPF: " />
+    </section>
+
+    <section>
+        <input placeholder="Digite a matrícula: " />
+    </section>
+
+    <section>
+        <input placeholder="Digite a cidade: " />
+    </section>
+    <p>Escolha o estado: </p>
+
+    <select asp-items="ViewBag.UF">
+        <option>Selecione um estado</option>
+    </select>
+
+    <button type="submit">Enviar</button>
+
+    <h1></h1>
+</div>
+

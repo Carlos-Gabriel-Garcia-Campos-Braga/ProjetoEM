@@ -105,6 +105,62 @@ public class AlunoRepository(FireBirdConnection connection) : IAlunoRepository
         return alunos;
     }
     
+    public Aluno AdicionarAluno(Aluno aluno)
+    {
+        using var connection = _connection.CreateConnection();
+        using var command = new FbCommand(
+            @"INSERT INTO TBALUNO (MATRICULA, NOME, SEXO, CPF,
+                                   CIDADE_ID)
+                      VALUES (@MATRICULA, @NOME, @SEXO, @CPF,
+                                   @CIDADE_ID)", connection);
+        
+        command.Parameters.CreateParameter("@MATRICULA", aluno.Matricula);
+        command.Parameters.CreateParameter("@NOME", aluno.Nome);
+        command.Parameters.CreateParameter("@SEXO", (int)aluno.Sexo);
+        command.Parameters.CreateParameter("@CPF", aluno.Cpf?.Value ?? (object)DBNull.Value);
+        command.Parameters.CreateParameter("@CIDADE_ID", aluno.CidadeId);
+        
+        command.ExecuteNonQuery();
+        
+        return aluno;
+    }
+
+    public Aluno AtualizarAluno(Aluno aluno)
+    {
+        using var connection = _connection.CreateConnection();
+        using var command = new FbCommand(
+            @"UPDATE TBALUNO
+                      SET NOME = @NOME, 
+                          SEXO = @SEXO, 
+                          CPF = @CPF,
+                          CIDADE_ID = @CIDADE_ID
+                      WHERE MATRICULA = @MATRICULA", connection);
+        
+        command.Parameters.CreateParameter("@MATRICULA", aluno.Matricula);
+        command.Parameters.CreateParameter("@NOME", aluno.Nome);
+        command.Parameters.CreateParameter("@SEXO", (int)aluno.Sexo);
+        command.Parameters.CreateParameter("@CPF", aluno.Cpf?.Value ?? (object)DBNull.Value);
+        command.Parameters.CreateParameter("@CIDADE_ID", aluno.CidadeId);
+        
+        command.ExecuteNonQuery();
+        
+        return aluno;
+    }
+
+    public bool DeletarAluno(int matricula)
+    {
+        using var connection = _connection.CreateConnection();
+        using var command = new FbCommand(
+            @"DELETE FROM TBALUNO
+                      WHERE MATRICULA = @MATRICULA", connection);
+        
+        command.Parameters.CreateParameter("@MATRICULA", matricula);
+        
+        var rowsAffected = command.ExecuteNonQuery();
+        
+        return rowsAffected > 0;
+    }
+    
     private static Aluno MapAluno(FbDataReader reader)
     {
         Aluno aluno = new Aluno

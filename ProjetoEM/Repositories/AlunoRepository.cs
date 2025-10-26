@@ -3,7 +3,7 @@ using ProjetoEM.DataBase;
 using ProjetoEM.Enums;
 using ProjetoEM.Interfaces;
 using ProjetoEM.Models;
-    using ProjetoEM.ValueObjects;
+using ProjetoEM.ValueObjects;
 
 namespace ProjetoEM.Repositories;
 
@@ -17,9 +17,9 @@ public class AlunoRepository(FireBirdConnection connection) : IAlunoRepository
         using var command = new FbCommand(
             @"SELECT A.MATRICULA, A.NOME, A.SEXO, A.CPF,
                      A.CIDADE_ID, C.ID, C.NOME_CIDADE, C.UF
-              FROM TBALUNO A
-              LEFT JOIN TBCIDADE C ON A.CIDADE_ID = C.ID
-              WHERE A.MATRICULA = @MATRICULA", connection);
+                     FROM TBALUNO A
+                     LEFT JOIN TBCIDADE C ON A.CIDADE_ID = C.ID
+                     WHERE A.MATRICULA = @MATRICULA", connection);
         
         command.Parameters.CreateParameter("@MATRICULA", matricula);
         
@@ -107,7 +107,7 @@ public class AlunoRepository(FireBirdConnection connection) : IAlunoRepository
     
     private static Aluno MapAluno(FbDataReader reader)
     {
-        var aluno = new Aluno
+        Aluno aluno = new Aluno
         {
             Matricula = reader.GetInt32(0),
             Nome = reader.GetString(1),
@@ -116,7 +116,6 @@ public class AlunoRepository(FireBirdConnection connection) : IAlunoRepository
             CidadeId = reader.GetInt32(4)
         };
 
-        // Mapeia a cidade se existir (LEFT JOIN pode retornar null)
         if (!reader.IsDBNull(5))
         {
             aluno.Cidade = new Cidade(

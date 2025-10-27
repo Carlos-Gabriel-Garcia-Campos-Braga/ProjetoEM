@@ -1,19 +1,211 @@
 using Microsoft.AspNetCore.Mvc;
 using ProjetoEM.Interfaces;
 using ProjetoEM.Models;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using ProjetoEM.Enums;
+using ProjetoEM.Services;
+using ProjetoEM.Validadores;
+using ProjetoEM.ValueObjects;
 
 namespace ProjetoEM.Controllers;
 
-public class AlunoController(IAlunoRepository repositorio) : Controller
+public class AlunoController : Controller
 {
-    private readonly IAlunoRepository _alunoRepository = repositorio;
+    private readonly IAlunoRepository _alunoRepository;
+    private readonly ICidadeRepository _cidadeRepository;
+    private readonly RelatorioService _relatorioService;
+
+    public AlunoController(
+        IAlunoRepository repositorio, 
+        ICidadeRepository cidadeRepositorio,
+        RelatorioService relatorioService)
+    {
+        _alunoRepository = repositorio;
+        _cidadeRepository = cidadeRepositorio;
+        _relatorioService = relatorioService;
+    }
+    
+    [HttpGet]
+    public IActionResult Index(string busca = "", int? sexo = null, int? cidadeId = null, int? uf = null)
+    {
+        IEnumerable<Aluno> alunos = _alunoRepository.OtenhaAlunos();
+        
+        if (!string.IsNullOrWhiteSpace(busca))
+        {
+            alunos = alunos.Where(a => 
+                a.Nome.Contains(busca, StringComparison.OrdinalIgnoreCase) ||
+                a.Matricula.ToString().Contains(busca, StringComparison.OrdinalIgnoreCase)
+            );
+        }
+
+        if (sexo.HasValue)
+        {
+            alunos = alunos.Where(a => (int)a.Sexo == sexo.Value);
+        }
+
+        if (cidadeId.HasValue)
+        {
+            alunos = alunos.Where(a => a.CidadeId == cidadeId.Value);
+        }
+
+        if (uf.HasValue)
+        {
+            alunos = alunos.Where(a => a.Cidade != null && (int)a.Cidade.UF == uf.Value);
+        }
+
+        ViewBag.Busca = busca;
+        ViewBag.SexoFiltro = sexo;
+        ViewBag.CidadeFiltro = cidadeId;
+        ViewBag.UFFiltro = uf;
+        ViewBag.SexoList = Enum.GetValues(typeof(Sexo));
+        ViewBag.CidadeList = _cidadeRepository.ObtenhaTodasCidades();
+        ViewBag.UFList = Enum.GetValues(typeof(UF));
+        
+        return View(alunos.ToList());
+    }
+    
+    [HttpGet]
+    public IActionResult Create()
+    {
+        CarregarDadosViewBag(null);
+        return View();
+    }
+    
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public IActionResult Create(Aluno aluno)
+    {
+        if (aluno.Cpf != null && string.IsNullOrWhiteSpace(aluno.Cpf.Value))
+        {
+            aluno.Cpf = null;            
+            ModelState.Remove("Cpf");
+            ModelState.Remove("Cpf.Value");
+        }
+        
+        if (!ModelState.IsValid || !ValidarAluno(aluno))
+        {
+            CarregarDadosViewBag(aluno);
+            return View(aluno);
+        }
+        
+        _alunoRepository.AdicionarAluno(aluno);
+        return RedirectToAction(nameof(Index));
+    }
+    
+    [HttpGet]
+    public IActionResult Edit(int matricula)
+    {
+        var aluno = _alunoRepository.OtenhaAlunoPorMatricula(matricula);
+        if (aluno == null)
+        {
+            return NotFound();
+        }
+        
+        CarregarDadosViewBag(aluno);
+        return View(aluno);
+    }
+    
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public IActionResult Edit(int matricula, Aluno aluno)
+    {
+        if (matricula != aluno.Matricula)
+        {
+            return NotFound();
+        }
+        
+        if (aluno.Cpf != null && string.IsNullOrWhiteSpace(aluno.Cpf.Value))
+        {
+            aluno.Cpf = null;
+            
+            ModelState.Remove("Cpf");
+            ModelState.Remove("Cpf.Value");
+        }
+        
+        if (!ModelState.IsValid || !ValidarAluno(aluno))
+        {
+            CarregarDadosViewBag(aluno);
+            return View(aluno);
+        }
+        
+        _alunoRepository.AtualizarAluno(aluno);
+        return RedirectToAction(nameof(Index));
+    }
+    
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public IActionResult Delete(int matricula)
+    {
+        _alunoRepository.DeletarAluno(matricula);
+        return RedirectToAction(nameof(Index));
+    }
+    
+    [HttpGet]
+    public IActionResult GerarRelatorio()
+    {
+        try
+        {
+            List<Aluno> alunos = _alunoRepository.OtenhaAlunos();
+            byte[] pdfBytes = _relatorioService.GerarRelatorioPDFAlunos(alunos);
+            
+            Response.Headers.ContentDisposition = $"inline; filename=Relatorio_Alunos_{DateTime.Now:yyyyMMdd_HHmmss}.pdf";
+            return File(pdfBytes, "application/pdf");
+        }
+        catch (Exception ex)
+        {
+            var erro = $"Erro ao gerar relatório: {ex.Message}\n\nStack Trace: {ex.StackTrace}";
+            if (ex.InnerException != null)
+            {
+                erro += $"\n\nInner Exception: {ex.InnerException.Message}";
+            }
+            
+            TempData["Erro"] = erro;
+            return RedirectToAction(nameof(Index));
+        }
+    }
+    
+    private void CarregarDadosViewBag(Aluno? aluno)
+    {
+        ViewBag.SexoList = new SelectList(Enum.GetValues(typeof(Sexo)), aluno?.Sexo);
+        ViewBag.CidadeList = _cidadeRepository.ObtenhaTodasCidades().Select(c => new SelectListItem
+        {
+            Value = c.Id.ToString(),
+            Text = $"{c.NomeDaCidade} - {c.UF}",
+            Selected = aluno?.CidadeId == c.Id
+        }).ToList();
+    }
+    
+    /// <summary>
+    /// Valida os dados do aluno usando as regras de negócio.
+    /// </summary>
+    private bool ValidarAluno(Aluno aluno)
+    {
+        // Validar nome usando o validador
+        if (string.IsNullOrWhiteSpace(aluno.Nome) || !ValidadorDoAluno.NomeEhValido(aluno.Nome))
+        {
+            ModelState.AddModelError("Nome", "O nome deve ter entre 3 e 100 caracteres.");
+            return false;
+        }
+        
+        // CPF é opcional, mas se preenchido deve ser válido
+        if (aluno.Cpf != null && !string.IsNullOrWhiteSpace(aluno.Cpf.Value))
+        {
+            if (!aluno.Cpf.EhValido())
+            {
+                ModelState.AddModelError("Cpf.Value", "CPF inválido.");
+                return false;
+            }
+        }
+        
+        return true;
+    }
     
     [HttpGet("/Aluno/ListarAlunos")]
     public IActionResult ListarAlunos()
     {
         try
         {
-            List<Aluno> alunos = _alunoRepository.OtenhaAlunos();
+            IEnumerable<Aluno> alunos = _alunoRepository.OtenhaAlunos();
 
             if (!alunos.Any())
             {
@@ -155,7 +347,7 @@ public class AlunoController(IAlunoRepository repositorio) : Controller
     }
 
     [HttpDelete("/Aluno/Deletar/{matricula}")]
-    public IActionResult Deletar(int matricula)
+    public IActionResult DeletarAPI(int matricula)
     {
         try
         {

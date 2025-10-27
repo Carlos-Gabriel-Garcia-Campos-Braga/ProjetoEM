@@ -8,6 +8,11 @@ namespace ProjetoEM.Models
         public string NomeDaCidade { get; set; }
         public UF UF { get; set; }
         
+        public Cidade()
+        {
+            NomeDaCidade = string.Empty;
+        }
+        
         public Cidade(int id, string nomeDaCidade, UF uf)
         {
             Id = id;

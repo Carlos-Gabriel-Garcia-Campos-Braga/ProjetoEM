@@ -29,6 +29,26 @@ public class CidadeRepository(FireBirdConnection connection) : ICidadeRepository
         return null;
     }
 
+    public List<Cidade> ObtenhaTodasCidades()
+    {
+        var cidades = new List<Cidade>();
+        
+        using var connection = _connection.CreateConnection();
+        using var command = new FbCommand(
+            @"SELECT C.ID, C.NOME_CIDADE, C.UF
+              FROM TBCIDADE C
+              ORDER BY C.NOME_CIDADE", connection);
+        
+        using var reader = command.ExecuteReader();
+
+        while (reader.Read())
+        {
+            cidades.Add(MapCidade(reader));
+        }
+        
+        return cidades;
+    }
+
     public List<Cidade> ObtenhaCidadePorEstado(int cod)
     {
         var cidades = new List<Cidade>();
@@ -54,15 +74,17 @@ public class CidadeRepository(FireBirdConnection connection) : ICidadeRepository
     public Cidade AdicionarCidade(Cidade cidade)
     {
         using var connection = _connection.CreateConnection();
-        using var command = new FbCommand(
-            @"INSERT INTO TBCIDADE (ID, NOME_CIDADE, UF)
-              VALUES (@ID, @NOME_CIDADE, @UF)", connection);
         
-        command.Parameters.CreateParameter("@ID", cidade.Id);
+        using var command = new FbCommand(
+            @"INSERT INTO TBCIDADE (NOME_CIDADE, UF)
+              VALUES (@NOME_CIDADE, @UF)
+              RETURNING ID", connection);
+        
         command.Parameters.CreateParameter("@NOME_CIDADE", cidade.NomeDaCidade);
         command.Parameters.CreateParameter("@UF", (int)cidade.UF);
         
-        command.ExecuteNonQuery();
+        var novoId = command.ExecuteScalar();
+        cidade.Id = Convert.ToInt32(novoId);
         
         return cidade;
     }

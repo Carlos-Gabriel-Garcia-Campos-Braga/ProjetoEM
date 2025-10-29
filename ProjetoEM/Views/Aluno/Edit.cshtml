@@ -1,0 +1,99 @@
+@model ProjetoEM.Models.Aluno
+
+@{
+    ViewData["Title"] = "Editar Aluno";
+    var isEdit = Model?.Matricula > 0;
+}
+
+<div class="container mt-4">
+    <div class="card">
+        <div class="card-header bg-primary text-white">
+            <h4 class="mb-0">
+                <i class="bi bi-pencil-square"></i> @ViewData["Title"]
+            </h4>
+        </div>
+        <div class="card-body">
+            <form asp-action="Edit" asp-route-matricula="@(Model?.Matricula ?? 0)" method="post">
+                @Html.AntiForgeryToken()
+                <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
+
+                <input type="hidden" asp-for="Matricula" />
+
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="Matricula" class="form-label">Matrícula *</label>
+                        <input asp-for="Matricula" class="form-control" type="number" readonly />
+                        <span asp-validation-for="Matricula" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="Nome" class="form-label">Nome *</label>
+                        <input asp-for="Nome" class="form-control" maxlength="100" required />
+                        <span asp-validation-for="Nome" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="Cpf" class="form-label">CPF (opcional)</label>
+                        <input asp-for="Cpf.Value" class="form-control" placeholder="000.000.000-00" />
+                        <small class="form-text text-muted">Deixe em branco se não possuir</small>
+                        <span asp-validation-for="Cpf" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="DataNascimento" class="form-label">Data de Nascimento</label>
+                        <input asp-for="DataNascimento" class="form-control" type="date" />
+                        <span asp-validation-for="DataNascimento" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="Sexo" class="form-label">Sexo *</label>
+                        <select asp-for="Sexo" asp-items="ViewBag.SexoList" class="form-select" required></select>
+                        <span asp-validation-for="Sexo" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12 mb-3">
+                        <label asp-for="CidadeId" class="form-label">Cidade *</label>
+                        <select asp-for="CidadeId" asp-items="ViewBag.CidadeList" class="form-select" required>
+                            <option value="">Selecione uma cidade</option>
+                        </select>
+                        <span asp-validation-for="CidadeId" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="d-flex justify-content-end gap-2 mt-4">
+                    <a asp-action="Index" class="btn btn-secondary">
+                        <i class="bi bi-arrow-left"></i> Cancelar
+                    </a>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="bi bi-check-circle"></i> Salvar
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        $(document).ready(function() {
+            var cpfInput = $('input[name="Cpf.Value"]');
+            
+            cpfInput.removeAttr('required')
+                    .removeAttr('data-val')
+                    .removeAttr('data-val-required')
+                    .removeAttr('aria-required')
+                    .removeClass('input-validation-error');
+            
+            var form = cpfInput.closest('form');
+            if (form.data('validator')) {
+                var validator = form.data('validator');
+                delete validator.settings.rules['Cpf.Value'];
+            }
+        });
+    </script>
+}

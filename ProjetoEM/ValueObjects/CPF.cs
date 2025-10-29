@@ -2,7 +2,25 @@
 {
     public class CPF
     {
-        public string Value { get; private set; }
+        public string Value { get; set; }
+        public string CpfFormatado
+        {
+            get
+            {
+                if (string.IsNullOrWhiteSpace(Value))
+                {
+                    return string.Empty;
+                }
+
+                string cpfNumbers = RemoverFormatacao(Value);
+                if (cpfNumbers.Length == 11 && long.TryParse(cpfNumbers, out var cpfNum))
+                {
+                    return string.Format("{0:000\\.000\\.000\\-00}", cpfNum);
+                }
+
+                return Value;
+            }
+        }
 
         public CPF()
         {

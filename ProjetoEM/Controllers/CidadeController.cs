@@ -89,9 +89,6 @@ public class CidadeController : Controller
         ViewBag.UFList = new SelectList(Enum.GetValues(typeof(UF)), cidade?.UF);
     }
     
-    /// <summary>
-    /// Valida os dados da cidade usando as regras de negócio.
-    /// </summary>
     private bool ValidarCidade(Cidade cidade)
     {
         if (string.IsNullOrWhiteSpace(cidade.NomeDaCidade) || !ValidadorDaCidade.NomeDaCidadeEhValido(cidade.NomeDaCidade))

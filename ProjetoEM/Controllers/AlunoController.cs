@@ -81,6 +81,10 @@ public class AlunoController : Controller
             ModelState.Remove("Cpf");
             ModelState.Remove("Cpf.Value");
         }
+        else if (aluno.Cpf != null && !string.IsNullOrWhiteSpace(aluno.Cpf.Value))
+        {
+            aluno.Cpf = new CPF(CPF.RemoverFormatacao(aluno.Cpf.Value));
+        }
         
         if (!ModelState.IsValid || !ValidarAluno(aluno))
         {
@@ -120,6 +124,10 @@ public class AlunoController : Controller
             
             ModelState.Remove("Cpf");
             ModelState.Remove("Cpf.Value");
+        }
+        else if (aluno.Cpf != null && !string.IsNullOrWhiteSpace(aluno.Cpf.Value))
+        {
+            aluno.Cpf = new CPF(CPF.RemoverFormatacao(aluno.Cpf.Value));
         }
         
         if (!ModelState.IsValid || !ValidarAluno(aluno))
@@ -175,19 +183,14 @@ public class AlunoController : Controller
         }).ToList();
     }
     
-    /// <summary>
-    /// Valida os dados do aluno usando as regras de negócio.
-    /// </summary>
     private bool ValidarAluno(Aluno aluno)
     {
-        // Validar nome usando o validador
         if (string.IsNullOrWhiteSpace(aluno.Nome) || !ValidadorDoAluno.NomeEhValido(aluno.Nome))
         {
             ModelState.AddModelError("Nome", "O nome deve ter entre 3 e 100 caracteres.");
             return false;
         }
-        
-        // CPF é opcional, mas se preenchido deve ser válido
+
         if (aluno.Cpf != null && !string.IsNullOrWhiteSpace(aluno.Cpf.Value))
         {
             if (!aluno.Cpf.EhValido())

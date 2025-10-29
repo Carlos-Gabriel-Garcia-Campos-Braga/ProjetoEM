@@ -32,7 +32,6 @@ builder.Services.AddScoped<RelatorioService>();
 
 var app = builder.Build();
 
-// Usar localização
 app.UseRequestLocalization();
 
 // Configure the HTTP request pipeline.

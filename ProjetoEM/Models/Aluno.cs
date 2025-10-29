@@ -8,6 +8,7 @@ namespace ProjetoEM.Models
         public int Matricula { get; set; }
         public string Nome { get; set; }
         public CPF? Cpf { get; set; }
+        public DateTime? DataNascimento { get; set; }
         public Sexo Sexo { get; set; }
         public int CidadeId { get; set; }
         public Cidade? Cidade { get; set; }

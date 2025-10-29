@@ -15,7 +15,7 @@ public class AlunoRepository(FireBirdConnection connection) : IAlunoRepository
     {
         using var connection = _connection.CreateConnection();
         using var command = new FbCommand(
-            @"SELECT A.MATRICULA, A.NOME, A.SEXO, A.CPF,
+            @"SELECT A.MATRICULA, A.NOME, A.SEXO, A.CPF, A.DATA_NASCIMENTO,
                      A.CIDADE_ID, C.ID, C.NOME_CIDADE, C.UF
                      FROM TBALUNO A
                      LEFT JOIN TBCIDADE C ON A.CIDADE_ID = C.ID
@@ -39,7 +39,7 @@ public class AlunoRepository(FireBirdConnection connection) : IAlunoRepository
         
         using var connection = _connection.CreateConnection();
         using var command = new FbCommand(
-            @"SELECT A.MATRICULA, A.NOME, A.SEXO, A.CPF,
+            @"SELECT A.MATRICULA, A.NOME, A.SEXO, A.CPF, A.DATA_NASCIMENTO,
                      A.CIDADE_ID, C.ID, C.NOME_CIDADE, C.UF
                      FROM TBALUNO A
                      LEFT JOIN TBCIDADE C ON A.CIDADE_ID = C.ID
@@ -64,7 +64,7 @@ public class AlunoRepository(FireBirdConnection connection) : IAlunoRepository
         
         using var connection = _connection.CreateConnection();
         using var command = new FbCommand(
-            @"SELECT A.MATRICULA, A.NOME, A.SEXO, A.CPF,
+            @"SELECT A.MATRICULA, A.NOME, A.SEXO, A.CPF, A.DATA_NASCIMENTO,
                      A.CIDADE_ID, C.ID, C.NOME_CIDADE, C.UF
                      FROM TBALUNO A
                      LEFT JOIN TBCIDADE C ON A.CIDADE_ID = C.ID
@@ -86,7 +86,7 @@ public class AlunoRepository(FireBirdConnection connection) : IAlunoRepository
         
         using var connection = _connection.CreateConnection();
         using var command = new FbCommand(
-            @"SELECT A.MATRICULA, A.NOME, A.SEXO, A.CPF,
+            @"SELECT A.MATRICULA, A.NOME, A.SEXO, A.CPF, A.DATA_NASCIMENTO,
                      A.CIDADE_ID, C.ID, C.NOME_CIDADE, C.UF
                      FROM TBALUNO A
                      LEFT JOIN TBCIDADE C ON A.CIDADE_ID = C.ID
@@ -109,15 +109,16 @@ public class AlunoRepository(FireBirdConnection connection) : IAlunoRepository
     {
         using var connection = _connection.CreateConnection();
         using var command = new FbCommand(
-            @"INSERT INTO TBALUNO (MATRICULA, NOME, SEXO, CPF,
+            @"INSERT INTO TBALUNO (MATRICULA, NOME, SEXO, CPF, DATA_NASCIMENTO,
                                    CIDADE_ID)
-                      VALUES (@MATRICULA, @NOME, @SEXO, @CPF,
+                      VALUES (@MATRICULA, @NOME, @SEXO, @CPF, @DATA_NASCIMENTO,
                                    @CIDADE_ID)", connection);
         
         command.Parameters.CreateParameter("@MATRICULA", aluno.Matricula);
         command.Parameters.CreateParameter("@NOME", aluno.Nome);
         command.Parameters.CreateParameter("@SEXO", (int)aluno.Sexo);
         command.Parameters.CreateParameter("@CPF", aluno.Cpf?.Value ?? (object)DBNull.Value);
+        command.Parameters.CreateParameter("@DATA_NASCIMENTO", aluno.DataNascimento.HasValue ? aluno.DataNascimento.Value.Date : (object)DBNull.Value);
         command.Parameters.CreateParameter("@CIDADE_ID", aluno.CidadeId);
         
         command.ExecuteNonQuery();
@@ -133,6 +134,7 @@ public class AlunoRepository(FireBirdConnection connection) : IAlunoRepository
                       SET NOME = @NOME, 
                           SEXO = @SEXO, 
                           CPF = @CPF,
+                          DATA_NASCIMENTO = @DATA_NASCIMENTO,
                           CIDADE_ID = @CIDADE_ID
                       WHERE MATRICULA = @MATRICULA", connection);
         
@@ -140,6 +142,7 @@ public class AlunoRepository(FireBirdConnection connection) : IAlunoRepository
         command.Parameters.CreateParameter("@NOME", aluno.Nome);
         command.Parameters.CreateParameter("@SEXO", (int)aluno.Sexo);
         command.Parameters.CreateParameter("@CPF", aluno.Cpf?.Value ?? (object)DBNull.Value);
+        command.Parameters.CreateParameter("@DATA_NASCIMENTO", aluno.DataNascimento.HasValue ? aluno.DataNascimento.Value.Date : (object)DBNull.Value);
         command.Parameters.CreateParameter("@CIDADE_ID", aluno.CidadeId);
         
         command.ExecuteNonQuery();
@@ -169,15 +172,16 @@ public class AlunoRepository(FireBirdConnection connection) : IAlunoRepository
             Nome = reader.GetString(1),
             Sexo = (Sexo)reader.GetInt32(2),
             Cpf = reader.IsDBNull(3) ? null : new CPF(reader.GetString(3)),
-            CidadeId = reader.GetInt32(4)
+            DataNascimento = reader.IsDBNull(4) ? null : reader.GetDateTime(4),
+            CidadeId = reader.GetInt32(5)
         };
 
-        if (!reader.IsDBNull(5))
+        if (!reader.IsDBNull(6))
         {
             aluno.Cidade = new Cidade(
-                id: reader.GetInt32(5),
-                nomeDaCidade: reader.GetString(6),
-                uf: (UF)reader.GetInt32(7)
+                id: reader.GetInt32(6),
+                nomeDaCidade: reader.GetString(7),
+                uf: (UF)reader.GetInt32(8)
             );
         }
 

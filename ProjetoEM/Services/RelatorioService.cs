@@ -29,8 +29,8 @@ namespace ProjetoEM.Services
 
             if (alunos.Any())
             {
-                var tabela = new iTextSharp.text.pdf.PdfPTable(5) { WidthPercentage = 100 };
-                tabela.SetWidths(new float[] { 15, 30, 20, 15, 20 });
+                var tabela = new iTextSharp.text.pdf.PdfPTable(6) { WidthPercentage = 100 };
+                tabela.SetWidths(new float[] { 12, 28, 18, 12, 12, 18 });
 
                 void AdicionarCelula(string texto, iTextSharp.text.Font fonte, bool ehCabecalho = false)
                 {
@@ -61,20 +61,27 @@ namespace ProjetoEM.Services
                 AdicionarCelula("Matrícula", fonteHeader, true);
                 AdicionarCelula("Nome", fonteHeader, true);
                 AdicionarCelula("CPF", fonteHeader, true);
+                AdicionarCelula("Data Nasc.", fonteHeader, true);
                 AdicionarCelula("Sexo", fonteHeader, true);
                 AdicionarCelula("Cidade", fonteHeader, true);
 
                 foreach (var aluno in alunos.OrderBy(a => a.Nome))
                 {
-                    AdicionarCelulaTexto(aluno.Matricula.ToString(), fonteNormal, iTextSharp.text.Element.ALIGN_CENTER);
-                    AdicionarCelulaTexto(aluno.Nome, fonteNormal, iTextSharp.text.Element.ALIGN_LEFT);
-                    AdicionarCelulaTexto(aluno.Cpf?.Value ?? "-", fonteNormal, iTextSharp.text.Element.ALIGN_CENTER);
-                    AdicionarCelulaTexto(aluno.Sexo.ToString(), fonteNormal, iTextSharp.text.Element.ALIGN_CENTER);
-
+                    var matricula = aluno.Matricula.ToString();
+                    var nome = aluno.Nome ?? string.Empty;
+                    var cpf = aluno.Cpf?.CpfFormatado ?? "-";
+                    var dataNasc = aluno.DataNascimento.HasValue ? aluno.DataNascimento.Value.ToString("dd/MM/yyyy") : "-";
+                    var sexo = aluno.Sexo.ToString();
                     var cidadeTexto = aluno.Cidade != null
                         ? $"{aluno.Cidade.NomeDaCidade} - {aluno.Cidade.UF}"
                         : "-";
-                    AdicionarCelulaTexto(cidadeTexto, fonteNormal, iTextSharp.text.Element.ALIGN_LEFT);
+                    
+                    AdicionarCelulaTexto(matricula, fonteNormal, iTextSharp.text.Element.ALIGN_CENTER);
+                    AdicionarCelulaTexto(nome, fonteNormal, iTextSharp.text.Element.ALIGN_CENTER);
+                    AdicionarCelulaTexto(cpf, fonteNormal, iTextSharp.text.Element.ALIGN_CENTER);
+                    AdicionarCelulaTexto(dataNasc, fonteNormal, iTextSharp.text.Element.ALIGN_CENTER);
+                    AdicionarCelulaTexto(sexo, fonteNormal, iTextSharp.text.Element.ALIGN_CENTER);
+                    AdicionarCelulaTexto(cidadeTexto, fonteNormal, iTextSharp.text.Element.ALIGN_CENTER);
                 }
 
                 doc.Add(tabela);

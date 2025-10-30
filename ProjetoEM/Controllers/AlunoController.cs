@@ -99,7 +99,7 @@ public class AlunoController : Controller
     [HttpGet]
     public IActionResult Edit(int matricula)
     {
-        var aluno = _alunoRepository.OtenhaAlunoPorMatricula(matricula);
+        Aluno aluno = _alunoRepository.OtenhaAlunoPorMatricula(matricula);
         if (aluno == null)
         {
             return NotFound();
@@ -161,7 +161,7 @@ public class AlunoController : Controller
         }
         catch (Exception ex)
         {
-            var erro = $"Erro ao gerar relatório: {ex.Message}\n\nStack Trace: {ex.StackTrace}";
+            string erro = $"Erro ao gerar relatório: {ex.Message}\n\nStack Trace: {ex.StackTrace}";
             if (ex.InnerException != null)
             {
                 erro += $"\n\nInner Exception: {ex.InnerException.Message}";

@@ -13,8 +13,8 @@ public class AlunoRepository(FireBirdConnection connection) : IAlunoRepository
     
     public Aluno OtenhaAlunoPorMatricula(int matricula)
     {
-        using var connection = _connection.CreateConnection();
-        using var command = new FbCommand(
+        using FbConnection connection = _connection.CreateConnection();
+        using FbCommand command = new FbCommand(
             @"SELECT A.MATRICULA, A.NOME, A.SEXO, A.CPF, A.DATA_NASCIMENTO,
                      A.CIDADE_ID, C.ID, C.NOME_CIDADE, C.UF
                      FROM TBALUNO A
@@ -23,7 +23,7 @@ public class AlunoRepository(FireBirdConnection connection) : IAlunoRepository
         
         command.Parameters.CreateParameter("@MATRICULA", matricula);
         
-        using var reader = command.ExecuteReader();
+        using FbDataReader reader = command.ExecuteReader();
 
         if (reader.Read())
         {
@@ -35,10 +35,10 @@ public class AlunoRepository(FireBirdConnection connection) : IAlunoRepository
 
     public List<Aluno> OtenhaAlunosPorSexo(int sexoIdentificador)
     {
-        var alunos = new List<Aluno>();
+        List<Aluno> alunos = new List<Aluno>();
         
-        using var connection = _connection.CreateConnection();
-        using var command = new FbCommand(
+        using FbConnection connection = _connection.CreateConnection();
+        using FbCommand command = new FbCommand(
             @"SELECT A.MATRICULA, A.NOME, A.SEXO, A.CPF, A.DATA_NASCIMENTO,
                      A.CIDADE_ID, C.ID, C.NOME_CIDADE, C.UF
                      FROM TBALUNO A
@@ -48,7 +48,7 @@ public class AlunoRepository(FireBirdConnection connection) : IAlunoRepository
         
         command.Parameters.CreateParameter("@SEXO", sexoIdentificador);
         
-        using var reader = command.ExecuteReader();
+        using FbDataReader reader = command.ExecuteReader();
 
         while (reader.Read())
         {
@@ -60,17 +60,17 @@ public class AlunoRepository(FireBirdConnection connection) : IAlunoRepository
 
     public List<Aluno> OtenhaAlunos()
     {
-        var alunos = new List<Aluno>();
+        List<Aluno> alunos = new List<Aluno>();
         
-        using var connection = _connection.CreateConnection();
-        using var command = new FbCommand(
+        using FbConnection connection = _connection.CreateConnection();
+        using FbCommand command = new FbCommand(
             @"SELECT A.MATRICULA, A.NOME, A.SEXO, A.CPF, A.DATA_NASCIMENTO,
                      A.CIDADE_ID, C.ID, C.NOME_CIDADE, C.UF
                      FROM TBALUNO A
                      LEFT JOIN TBCIDADE C ON A.CIDADE_ID = C.ID
                      ORDER BY A.NOME", connection);
         
-        using var reader = command.ExecuteReader();
+        using FbDataReader reader = command.ExecuteReader();
 
         while (reader.Read())
         {
@@ -82,10 +82,10 @@ public class AlunoRepository(FireBirdConnection connection) : IAlunoRepository
 
     public List<Aluno> OtenhaAlunosPorCidade(int cidadeIdentificador)
     {
-        var alunos = new List<Aluno>();
+        List<Aluno> alunos = new List<Aluno>();
         
-        using var connection = _connection.CreateConnection();
-        using var command = new FbCommand(
+        using FbConnection connection = _connection.CreateConnection();
+        using FbCommand command = new FbCommand(
             @"SELECT A.MATRICULA, A.NOME, A.SEXO, A.CPF, A.DATA_NASCIMENTO,
                      A.CIDADE_ID, C.ID, C.NOME_CIDADE, C.UF
                      FROM TBALUNO A
@@ -95,7 +95,7 @@ public class AlunoRepository(FireBirdConnection connection) : IAlunoRepository
         
         command.Parameters.CreateParameter("@CIDADE_ID", cidadeIdentificador);
         
-        using var reader = command.ExecuteReader();
+        using FbDataReader reader = command.ExecuteReader();
 
         while (reader.Read())
         {
@@ -107,8 +107,8 @@ public class AlunoRepository(FireBirdConnection connection) : IAlunoRepository
     
     public Aluno AdicionarAluno(Aluno aluno)
     {
-        using var connection = _connection.CreateConnection();
-        using var command = new FbCommand(
+        using FbConnection connection = _connection.CreateConnection();
+        using FbCommand command = new FbCommand(
             @"INSERT INTO TBALUNO (MATRICULA, NOME, SEXO, CPF, DATA_NASCIMENTO,
                                    CIDADE_ID)
                       VALUES (@MATRICULA, @NOME, @SEXO, @CPF, @DATA_NASCIMENTO,
@@ -128,8 +128,8 @@ public class AlunoRepository(FireBirdConnection connection) : IAlunoRepository
 
     public Aluno AtualizarAluno(Aluno aluno)
     {
-        using var connection = _connection.CreateConnection();
-        using var command = new FbCommand(
+        using FbConnection connection = _connection.CreateConnection();
+        using FbCommand command = new FbCommand(
             @"UPDATE TBALUNO
                       SET NOME = @NOME, 
                           SEXO = @SEXO, 
@@ -152,14 +152,14 @@ public class AlunoRepository(FireBirdConnection connection) : IAlunoRepository
 
     public bool DeletarAluno(int matricula)
     {
-        using var connection = _connection.CreateConnection();
-        using var command = new FbCommand(
+        using FbConnection connection = _connection.CreateConnection();
+        using FbCommand command = new FbCommand(
             @"DELETE FROM TBALUNO
                       WHERE MATRICULA = @MATRICULA", connection);
         
         command.Parameters.CreateParameter("@MATRICULA", matricula);
         
-        var rowsAffected = command.ExecuteNonQuery();
+        int rowsAffected = command.ExecuteNonQuery();
         
         return rowsAffected > 0;
     }

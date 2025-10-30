@@ -19,7 +19,7 @@ public class CidadeController : Controller
     [HttpGet]
     public IActionResult Index()
     {
-        var cidades = _cidadeRepository.ObtenhaTodasCidades();
+        List<Cidade> cidades = _cidadeRepository.ObtenhaTodasCidades();
         return View(cidades);
     }
     
@@ -47,7 +47,7 @@ public class CidadeController : Controller
     [HttpGet]
     public IActionResult Edit(int id)
     {
-        var cidade = _cidadeRepository.ObtenhaCidade(id);
+        Cidade cidade = _cidadeRepository.ObtenhaCidade(id);
         if (cidade == null)
         {
             return NotFound();

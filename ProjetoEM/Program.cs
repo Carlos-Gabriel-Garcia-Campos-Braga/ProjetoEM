@@ -5,9 +5,9 @@ using ProjetoEM.Services;
 using System.Globalization;
 using Microsoft.AspNetCore.Localization;
 
-var builder = WebApplication.CreateBuilder(args);
+WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
-var supportedCultures = new[] { new CultureInfo("pt-BR") };
+CultureInfo[] supportedCultures = new[] { new CultureInfo("pt-BR") };
 builder.Services.Configure<RequestLocalizationOptions>(options =>
 {
     options.DefaultRequestCulture = new RequestCulture("pt-BR");
@@ -30,14 +30,14 @@ builder.Services.AddScoped<ICidadeRepository, CidadeRepository>();
 // Services
 builder.Services.AddScoped<RelatorioService>();
 
-var app = builder.Build();
+WebApplication app = builder.Build();
 
 app.UseRequestLocalization();
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
-    app.UseExceptionHandler("/Home/Error");
+    app.UseExceptionHandler("/Aluno/Index");
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }

@@ -13,7 +13,7 @@
                 }
 
                 string cpfNumbers = RemoverFormatacao(Value);
-                if (cpfNumbers.Length == 11 && long.TryParse(cpfNumbers, out var cpfNum))
+                if (cpfNumbers.Length == 11 && long.TryParse(cpfNumbers, out long cpfNum))
                 {
                     return string.Format("{0:000\\.000\\.000\\-00}", cpfNum);
                 }

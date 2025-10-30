@@ -12,14 +12,14 @@ public class CidadeRepository(FireBirdConnection connection) : ICidadeRepository
     
     public Cidade ObtenhaCidade(int cod)
     {
-        using var connection = _connection.CreateConnection();
-        using var command = new FbCommand(
+        using FbConnection connection = _connection.CreateConnection();
+        using FbCommand command = new FbCommand(
             @"SELECT C.ID, C.NOME_CIDADE, C.UF
                       FROM TBCIDADE C
                       WHERE C.ID = @ID", connection);
         
         command.Parameters.CreateParameter("@ID", cod);
-        using var reader = command.ExecuteReader();
+        using FbDataReader reader = command.ExecuteReader();
 
         if (reader.Read())
         {
@@ -31,15 +31,15 @@ public class CidadeRepository(FireBirdConnection connection) : ICidadeRepository
 
     public List<Cidade> ObtenhaTodasCidades()
     {
-        var cidades = new List<Cidade>();
+        List<Cidade> cidades = new List<Cidade>();
         
-        using var connection = _connection.CreateConnection();
-        using var command = new FbCommand(
+        using FbConnection connection = _connection.CreateConnection();
+        using FbCommand command = new FbCommand(
             @"SELECT C.ID, C.NOME_CIDADE, C.UF
               FROM TBCIDADE C
               ORDER BY C.NOME_CIDADE", connection);
         
-        using var reader = command.ExecuteReader();
+        using FbDataReader reader = command.ExecuteReader();
 
         while (reader.Read())
         {
@@ -51,17 +51,17 @@ public class CidadeRepository(FireBirdConnection connection) : ICidadeRepository
 
     public List<Cidade> ObtenhaCidadePorEstado(int cod)
     {
-        var cidades = new List<Cidade>();
+        List<Cidade> cidades = new List<Cidade>();
         
-        using var connection = _connection.CreateConnection();
-        using var command = new FbCommand(
+        using FbConnection connection = _connection.CreateConnection();
+        using FbCommand command = new FbCommand(
             @"SELECT C.ID, C.NOME_CIDADE, C.UF
               FROM TBCIDADE C
               WHERE C.UF = @UF
               ORDER BY C.NOME_CIDADE", connection);
         
         command.Parameters.CreateParameter("@UF", cod);
-        using var reader = command.ExecuteReader();
+        using FbDataReader reader = command.ExecuteReader();
 
         while (reader.Read())
         {
@@ -73,9 +73,9 @@ public class CidadeRepository(FireBirdConnection connection) : ICidadeRepository
 
     public Cidade AdicionarCidade(Cidade cidade)
     {
-        using var connection = _connection.CreateConnection();
+        using FbConnection connection = _connection.CreateConnection();
         
-        using var command = new FbCommand(
+        using FbCommand command = new FbCommand(
             @"INSERT INTO TBCIDADE (NOME_CIDADE, UF)
               VALUES (@NOME_CIDADE, @UF)
               RETURNING ID", connection);
@@ -83,7 +83,7 @@ public class CidadeRepository(FireBirdConnection connection) : ICidadeRepository
         command.Parameters.CreateParameter("@NOME_CIDADE", cidade.NomeDaCidade);
         command.Parameters.CreateParameter("@UF", (int)cidade.UF);
         
-        var novoId = command.ExecuteScalar();
+        object novoId = command.ExecuteScalar();
         cidade.Id = Convert.ToInt32(novoId);
         
         return cidade;
@@ -91,8 +91,8 @@ public class CidadeRepository(FireBirdConnection connection) : ICidadeRepository
 
     public Cidade AtualizarCidade(Cidade cidade)
     {
-        using var connection = _connection.CreateConnection();
-        using var command = new FbCommand(
+        using FbConnection connection = _connection.CreateConnection();
+        using FbCommand command = new FbCommand(
             @"UPDATE TBCIDADE
               SET NOME_CIDADE = @NOME_CIDADE, UF = @UF
               WHERE ID = @ID", connection);
@@ -108,14 +108,14 @@ public class CidadeRepository(FireBirdConnection connection) : ICidadeRepository
 
     public bool DeletarCidade(int id)
     {
-        using var connection = _connection.CreateConnection();
-        using var command = new FbCommand(
+        using FbConnection connection = _connection.CreateConnection();
+        using FbCommand command = new FbCommand(
             @"DELETE FROM TBCIDADE
               WHERE ID = @ID", connection);
         
         command.Parameters.CreateParameter("@ID", id);
         
-        var rowsAffected = command.ExecuteNonQuery();
+        int rowsAffected = command.ExecuteNonQuery();
         
         return rowsAffected > 0;
     }

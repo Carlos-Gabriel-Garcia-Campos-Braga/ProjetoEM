@@ -1,0 +1,76 @@
+@model IEnumerable<EM.Domain.Cidade>
+
+@{
+    ViewData["Title"] = "Gerenciar Cidades";
+}
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="text-primary">Gerenciar Cidades</h2>
+        <a asp-action="Create" class="btn btn-primary">
+            <i class="bi bi-plus-circle"></i> Adicionar Cidade
+        </a>
+    </div>
+
+    <div class="card">
+        <div class="card-body">
+            @if (Model != null && Model.Any())
+            {
+                <div class="table-responsive">
+                    <table class="table table-hover table-striped">
+                        <thead class="table-primary">
+                            <tr>
+                                <th class="text-center">ID</th>
+                                <th class="text-center">Nome da Cidade</th>
+                                <th class="text-center">UF</th>
+                                <th class="text-center" style="width: 180px;">Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var cidade in Model)
+                            {
+                                <tr>
+                                    <td class="text-center">@cidade.Id</td>
+                                    <td class="text-center">@cidade.NomeDaCidade</td>
+                                    <td class="text-center">@cidade.UF</td>
+                                    <td class="text-center">
+                                        <div class="btn-group" role="group">
+                                            <a asp-action="Edit" asp-route-id="@cidade.Id" class="btn btn-sm btn-warning">
+                                                <i class="bi bi-pencil"></i> Editar
+                                            </a>
+                                            <button type="button" class="btn btn-sm btn-danger" onclick="confirmarExclusao(@cidade.Id, '@cidade.NomeDaCidade')">
+                                                <i class="bi bi-trash"></i> Excluir
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+            else
+            {
+                <div class="alert alert-info text-center" role="alert">
+                    <i class="bi bi-info-circle"></i> Nenhuma cidade cadastrada.
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+<form id="formExcluir" method="post" style="display: none;">
+    @Html.AntiForgeryToken()
+</form>
+
+@section Scripts {
+    <script>
+        function confirmarExclusao(id, nome) {
+            if (confirm(`Tem certeza que deseja excluir a cidade "${nome}" (ID: ${id})?`)) {
+                const form = document.getElementById('formExcluir');
+                form.action = '@Url.Action("Delete", "Cidade")/' + id;
+                form.submit();
+            }
+        }
+    </script>
+}

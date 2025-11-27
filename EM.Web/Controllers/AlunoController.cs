@@ -77,7 +77,7 @@ public class AlunoController(
             aluno.Cpf = new CPF(CPF.RemoverFormatacao(aluno.Cpf.Value));
         }
         
-        if (!ModelState.IsValid || !ValidarAluno(aluno))
+        if (!ModelState.IsValid || !ValidarAluno(aluno, null))
         {
             CarregarDadosViewBag(aluno);
             return View(aluno);
@@ -121,7 +121,7 @@ public class AlunoController(
             aluno.Cpf = new CPF(CPF.RemoverFormatacao(aluno.Cpf.Value));
         }
         
-        if (!ModelState.IsValid || !ValidarAluno(aluno))
+        if (!ModelState.IsValid || !ValidarAluno(aluno, matricula))
         {
             CarregarDadosViewBag(aluno);
             return View(aluno);
@@ -174,7 +174,7 @@ public class AlunoController(
         }).ToList();
     }
     
-    private bool ValidarAluno(Aluno aluno)
+    private bool ValidarAluno(Aluno aluno, int? matriculaAtual)
     {
         if (string.IsNullOrWhiteSpace(aluno.Nome) || !Validation.NomeEhValido(aluno.Nome))
         {
@@ -188,6 +188,29 @@ public class AlunoController(
             {
                 ModelState.AddModelError("Cpf.Value", "CPF inválido.");
                 return false;
+            }
+        }
+
+        Aluno? alunoComMesmaMatricula = _alunoRepository.OtenhaAlunoPorMatricula(aluno.Matricula);
+        if (alunoComMesmaMatricula != null)
+        {
+            if (!matriculaAtual.HasValue || alunoComMesmaMatricula.Matricula != matriculaAtual.Value)
+            {
+                ModelState.AddModelError("Matricula", $"Já existe um aluno cadastrado com a matrícula {aluno.Matricula}.");
+                return false;
+            }
+        }
+
+        if (aluno.Cpf != null && !string.IsNullOrWhiteSpace(aluno.Cpf.Value))
+        {
+            Aluno? alunoComMesmoCpf = _alunoRepository.OtenhaAlunoPorCpf(aluno.Cpf.Value);
+            if (alunoComMesmoCpf != null)
+            {
+                if (!matriculaAtual.HasValue || alunoComMesmoCpf.Matricula != matriculaAtual.Value)
+                {
+                    ModelState.AddModelError("Cpf.Value", $"Já existe um aluno cadastrado com o CPF {aluno.Cpf.CpfFormatado}.");
+                    return false;
+                }
             }
         }
         

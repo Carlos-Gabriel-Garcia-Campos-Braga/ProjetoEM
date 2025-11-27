@@ -1,9 +1,9 @@
 namespace EM.Domain.Utilitarios
 {
-    public enum Sexo
+    public enum Sexo : int
     {
-        Masculino,
-        Feminino
+        Masculino = 0,
+        Feminino = 1
     }
 }
 

@@ -1,0 +1,149 @@
+## Arquivos de build e compilação
+[Bb]in/
+[Oo]bj/
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+[Aa][Rr][Mm]/
+[Aa][Rr][Mm]64/
+bld/
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+[Ll]ogs/
+
+## Arquivos do Visual Studio
+*.user
+*.userosscache
+*.sln.docstates
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+*.suo
+*.cache
+*.ilk
+*.meta
+*.obj
+*.pch
+*.pdb
+*.pgc
+*.pgd
+*.rsp
+*.sbr
+*.tlb
+*.tli
+*.tlh
+*.tmp
+*.tmp_proj
+*.log
+*.vspscc
+*.vssscc
+.builds
+*.pidb
+*.svclog
+*.scc
+
+## Arquivos do Visual Studio Code
+.vscode/
+*.code-workspace
+
+## Arquivos do Rider
+.idea/
+*.sln.iml
+
+## Arquivos do Visual Studio para Mac
+*.pidb
+*.userprefs
+
+## Arquivos temporários
+*.tmp
+*.temp
+*.bak
+*.swp
+*~
+*.cache
+*.log
+
+## Arquivos de NuGet
+*.nupkg
+*.snupkg
+**/packages/*
+!**/packages/build/
+*.nuget.props
+*.nuget.targets
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+## Arquivos de teste
+TestResults/
+[Tt]est[Rr]esult*/
+*.trx
+*.coverage
+*.coveragexml
+
+## Arquivos de publicação
+publish/
+*.pubxml
+*.publishproj
+
+## Arquivos de banco de dados local
+*.mdf
+*.ldf
+*.ndf
+
+## Arquivos de configuração local
+appsettings.local.json
+appsettings.*.local.json
+*.local.json
+
+## Arquivos de backup
+*.Backup.tmp
+*.backup
+*.bak
+
+## Arquivos do sistema operacional
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+Desktop.ini
+
+## Arquivos de resharper
+_ReSharper*/
+*.[Rr]e[Ss]harper
+*.DotSettings.user
+
+## Arquivos do JetBrains
+.idea/
+*.sln.iml
+
+## Arquivos do Azure
+*.azurePubxml
+*.pubxml
+*.publishproj
+
+## Arquivos do Microsoft Azure Web App publish settings
+PublishScripts/
+
+## Arquivos de Node.js (caso use)
+node_modules/
+npm-debug.log
+yarn-error.log
+
+## Arquivos de Python (caso use)
+__pycache__/
+*.py[cod]
+*$py.class
+
+## Arquivos de backup do projeto
+*.csproj.user
+*.csproj.user.*
+*.user
+*.user.*
+

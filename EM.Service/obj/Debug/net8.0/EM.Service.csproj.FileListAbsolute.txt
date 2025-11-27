@@ -1,0 +1,16 @@
+C:\Users\carlo\Desktop\PC\ProjetoEM\EM.Service\bin\Debug\net8.0\EM.Service.deps.json
+C:\Users\carlo\Desktop\PC\ProjetoEM\EM.Service\bin\Debug\net8.0\EM.Service.dll
+C:\Users\carlo\Desktop\PC\ProjetoEM\EM.Service\bin\Debug\net8.0\EM.Service.pdb
+C:\Users\carlo\Desktop\PC\ProjetoEM\EM.Service\bin\Debug\net8.0\EM.Domain.dll
+C:\Users\carlo\Desktop\PC\ProjetoEM\EM.Service\bin\Debug\net8.0\EM.Domain.pdb
+C:\Users\carlo\Desktop\PC\ProjetoEM\EM.Service\obj\Debug\net8.0\EM.Service.csproj.AssemblyReference.cache
+C:\Users\carlo\Desktop\PC\ProjetoEM\EM.Service\obj\Debug\net8.0\EM.Service.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\carlo\Desktop\PC\ProjetoEM\EM.Service\obj\Debug\net8.0\EM.Service.AssemblyInfoInputs.cache
+C:\Users\carlo\Desktop\PC\ProjetoEM\EM.Service\obj\Debug\net8.0\EM.Service.AssemblyInfo.cs
+C:\Users\carlo\Desktop\PC\ProjetoEM\EM.Service\obj\Debug\net8.0\EM.Service.csproj.CoreCompileInputs.cache
+C:\Users\carlo\Desktop\PC\ProjetoEM\EM.Service\obj\Debug\net8.0\EM.Service.sourcelink.json
+C:\Users\carlo\Desktop\PC\ProjetoEM\EM.Service\obj\Debug\net8.0\EM.Service.csproj.Up2Date
+C:\Users\carlo\Desktop\PC\ProjetoEM\EM.Service\obj\Debug\net8.0\EM.Service.dll
+C:\Users\carlo\Desktop\PC\ProjetoEM\EM.Service\obj\Debug\net8.0\refint\EM.Service.dll
+C:\Users\carlo\Desktop\PC\ProjetoEM\EM.Service\obj\Debug\net8.0\EM.Service.pdb
+C:\Users\carlo\Desktop\PC\ProjetoEM\EM.Service\obj\Debug\net8.0\ref\EM.Service.dll

@@ -1,7 +1,8 @@
 using EM.Repository.Banco;
 using EM.Domain.Interface;
 using EM.Repository;
-using EM.Web.Services;
+using EM.Service.Interface;
+using EM.Service.Services;
 using System.Globalization;
 using Microsoft.AspNetCore.Localization;
 
@@ -28,7 +29,7 @@ builder.Services.AddScoped<IAlunoRepository, RepositorioAluno>();
 builder.Services.AddScoped<ICidadeRepository, RepositorioCidade>();
 
 // Services
-builder.Services.AddScoped<RelatorioService>();
+builder.Services.AddScoped<IRelatorioService, RelatorioAlunoService>();
 
 WebApplication app = builder.Build();
 

@@ -8,12 +8,12 @@
 
   <ItemGroup>
     <PackageReference Include="FirebirdSql.Data.FirebirdClient" Version="10.3.3" />
-    <PackageReference Include="iTextSharp.LGPLv2.Core" Version="1.7.1" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\EM.Domain\EM.Domain.csproj" />
     <ProjectReference Include="..\EM.Repository\EM.Repository.csproj" />
+    <ProjectReference Include="..\EM.Service\EM.Service.csproj" />
   </ItemGroup>
 
 </Project>

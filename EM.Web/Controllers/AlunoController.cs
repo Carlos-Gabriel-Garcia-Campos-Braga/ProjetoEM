@@ -1,20 +1,20 @@
-using Microsoft.AspNetCore.Mvc;
-using EM.Domain.Interface;
 using EM.Domain;
-using Microsoft.AspNetCore.Mvc.Rendering;
+using EM.Domain.Interface;
 using EM.Domain.Utilitarios;
-using EM.Web.Services;
+using EM.Service.Interface;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace EM.Web.Controllers;
 
 public class AlunoController(
     IAlunoRepository repositorio,
     ICidadeRepository cidadeRepositorio,
-    RelatorioService relatorioService) : Controller
+    IRelatorioService relatorioService) : Controller
 {
     private readonly IAlunoRepository _alunoRepository = repositorio;
     private readonly ICidadeRepository _cidadeRepository = cidadeRepositorio;
-    private readonly RelatorioService _relatorioService = relatorioService;
+    private readonly IRelatorioService _relatorioService = relatorioService;
 
     [HttpGet]
     public IActionResult Index(string busca = "", int? sexo = null, int? cidadeId = null, int? uf = null)
@@ -92,7 +92,7 @@ public class AlunoController(
     [HttpGet]
     public IActionResult Edit(int matricula)
     {
-        Aluno aluno = _alunoRepository.OtenhaAlunoPorMatricula(matricula);
+        Aluno? aluno = _alunoRepository.OtenhaAlunoPorMatricula(matricula);
         if (aluno == null)
         {
             return NotFound();
@@ -248,7 +248,7 @@ public class AlunoController(
     {
         try
         {
-            Aluno aluno = _alunoRepository.OtenhaAlunoPorMatricula(matricula);
+            Aluno? aluno = _alunoRepository.OtenhaAlunoPorMatricula(matricula);
 
             if (aluno == null)
             {
@@ -318,13 +318,13 @@ public class AlunoController(
                 return BadRequest("Dados do aluno são obrigatórios!");
             }
 
-            Aluno alunoExistente = _alunoRepository.OtenhaAlunoPorMatricula(aluno.Matricula);
+            Aluno? alunoExistente = _alunoRepository.OtenhaAlunoPorMatricula(aluno.Matricula);
             if (alunoExistente != null)
             {
                 return Conflict($"Já existe um aluno cadastrado com a matrícula {aluno.Matricula}!");
             }
 
-            Aluno alunoAdicionado = _alunoRepository.AdicionarAluno(aluno);
+            Aluno? alunoAdicionado = _alunoRepository.AdicionarAluno(aluno);
             return CreatedAtAction(nameof(ObterPorMatricula), 
                 new { matricula = alunoAdicionado.Matricula }, alunoAdicionado);
         }
@@ -354,13 +354,13 @@ public class AlunoController(
                 return BadRequest("A matrícula informada não corresponde ao aluno!");
             }
 
-            Aluno alunoExistente = _alunoRepository.OtenhaAlunoPorMatricula(matricula);
+            Aluno? alunoExistente = _alunoRepository.OtenhaAlunoPorMatricula(matricula);
             if (alunoExistente == null)
             {
                 return NotFound($"Aluno com matrícula {matricula} não encontrado!");
             }
 
-            Aluno alunoAtualizado = _alunoRepository.AtualizarAluno(aluno);
+            Aluno? alunoAtualizado = _alunoRepository.AtualizarAluno(aluno);
             return Ok(alunoAtualizado);
         }
         catch (Exception ex)
@@ -374,7 +374,7 @@ public class AlunoController(
     {
         try
         {
-            Aluno alunoExistente = _alunoRepository.OtenhaAlunoPorMatricula(matricula);
+            Aluno? alunoExistente = _alunoRepository.OtenhaAlunoPorMatricula(matricula);
             if (alunoExistente == null)
             {
                 return NotFound($"Aluno com matrícula {matricula} não encontrado!");

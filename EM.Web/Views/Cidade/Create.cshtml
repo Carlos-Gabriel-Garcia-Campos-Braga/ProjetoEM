@@ -1,23 +1,38 @@
 @model EM.Domain.Cidade
 
 @{
-    ViewData["Title"] = "Adicionar Cidade";
+    var isEdit = ViewBag.IsEdit != null ? (bool)ViewBag.IsEdit : (Model?.Id > 0);
+    ViewData["Title"] = isEdit ? "Edição de Cidade" : "Adicionar Cidade";
 }
 
 <div class="container mt-4">
     <div class="card">
         <div class="card-header bg-primary text-white">
             <h4 class="mb-0">
-                <i class="bi bi-geo-plus"></i> @ViewData["Title"]
+                <i class="bi @(isEdit ? "bi-pencil-square" : "bi-geo-plus")"></i> @ViewData["Title"]
             </h4>
         </div>
         <div class="card-body">
-            <form asp-action="Create" method="post">
+            <form asp-action="@(isEdit ? "Edit" : "Create")" asp-route-id="@(isEdit && Model != null ? Model.Id : 0)" method="post">
                 @Html.AntiForgeryToken()
                 <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
 
+                @if (isEdit)
+                {
+                    <input type="hidden" asp-for="Id" />
+                }
+
                 <div class="row">
-                    <div class="col-md-12 mb-3">
+                    @if (isEdit)
+                    {
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="Id" class="form-label">ID *</label>
+                            <input asp-for="Id" class="form-control" type="number" readonly />
+                            <span asp-validation-for="Id" class="text-danger"></span>
+                        </div>
+                    }
+
+                    <div class="@(isEdit ? "col-md-6" : "col-md-12") mb-3">
                         <label asp-for="NomeDaCidade" class="form-label">Nome da Cidade *</label>
                         <input asp-for="NomeDaCidade" class="form-control" required />
                         <span asp-validation-for="NomeDaCidade" class="text-danger"></span>

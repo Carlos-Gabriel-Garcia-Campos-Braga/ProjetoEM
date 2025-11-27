@@ -58,6 +58,7 @@ public class AlunoController(
     [HttpGet]
     public IActionResult Create()
     {
+        ViewBag.IsEdit = false;
         CarregarDadosViewBag(null);
         return View();
     }
@@ -79,6 +80,7 @@ public class AlunoController(
         
         if (!ModelState.IsValid || !ValidarAluno(aluno, null))
         {
+            ViewBag.IsEdit = false;
             CarregarDadosViewBag(aluno);
             return View(aluno);
         }
@@ -96,8 +98,9 @@ public class AlunoController(
             return NotFound();
         }
         
+        ViewBag.IsEdit = true;
         CarregarDadosViewBag(aluno);
-        return View(aluno);
+        return View("Create", aluno);
     }
     
     [HttpPost]
@@ -123,8 +126,9 @@ public class AlunoController(
         
         if (!ModelState.IsValid || !ValidarAluno(aluno, matricula))
         {
+            ViewBag.IsEdit = true;
             CarregarDadosViewBag(aluno);
-            return View(aluno);
+            return View("Create", aluno);
         }
         
         _alunoRepository.AtualizarAluno(aluno);
@@ -176,10 +180,12 @@ public class AlunoController(
     
     private bool ValidarAluno(Aluno aluno, int? matriculaAtual)
     {
+        bool isValid = true;
+
         if (string.IsNullOrWhiteSpace(aluno.Nome) || !Validation.NomeEhValido(aluno.Nome))
         {
             ModelState.AddModelError("Nome", "O nome deve ter entre 3 e 100 caracteres.");
-            return false;
+            isValid = false;
         }
 
         if (aluno.Cpf != null && !string.IsNullOrWhiteSpace(aluno.Cpf.Value))
@@ -187,7 +193,7 @@ public class AlunoController(
             if (!aluno.Cpf.EhValido())
             {
                 ModelState.AddModelError("Cpf.Value", "CPF inválido.");
-                return false;
+                isValid = false;
             }
         }
 
@@ -197,7 +203,7 @@ public class AlunoController(
             if (!matriculaAtual.HasValue || alunoComMesmaMatricula.Matricula != matriculaAtual.Value)
             {
                 ModelState.AddModelError("Matricula", $"Já existe um aluno cadastrado com a matrícula {aluno.Matricula}.");
-                return false;
+                isValid = false;
             }
         }
 
@@ -209,12 +215,12 @@ public class AlunoController(
                 if (!matriculaAtual.HasValue || alunoComMesmoCpf.Matricula != matriculaAtual.Value)
                 {
                     ModelState.AddModelError("Cpf.Value", $"Já existe um aluno cadastrado com o CPF {aluno.Cpf.CpfFormatado}.");
-                    return false;
+                    isValid = false;
                 }
             }
         }
         
-        return true;
+        return isValid;
     }
     
     [HttpGet("/Aluno/ListarAlunos")]

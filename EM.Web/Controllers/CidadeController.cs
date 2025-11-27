@@ -20,6 +20,7 @@ public class CidadeController(ICidadeRepository repositorio) : Controller
     [HttpGet]
     public IActionResult Create()
     {
+        ViewBag.IsEdit = false;
         CarregarDadosViewBag(null);
         return View();
     }
@@ -30,6 +31,7 @@ public class CidadeController(ICidadeRepository repositorio) : Controller
     {
         if (!ModelState.IsValid || !ValidarCidade(cidade))
         {
+            ViewBag.IsEdit = false;
             CarregarDadosViewBag(cidade);
             return View(cidade);
         }
@@ -47,8 +49,9 @@ public class CidadeController(ICidadeRepository repositorio) : Controller
             return NotFound();
         }
         
+        ViewBag.IsEdit = true;
         CarregarDadosViewBag(cidade);
-        return View(cidade);
+        return View("Create", cidade);
     }
     
     [HttpPost]
@@ -62,8 +65,9 @@ public class CidadeController(ICidadeRepository repositorio) : Controller
         
         if (!ModelState.IsValid || !ValidarCidade(cidade))
         {
+            ViewBag.IsEdit = true;
             CarregarDadosViewBag(cidade);
-            return View(cidade);
+            return View("Create", cidade);
         }
         
         _cidadeRepository.AtualizarCidade(cidade);

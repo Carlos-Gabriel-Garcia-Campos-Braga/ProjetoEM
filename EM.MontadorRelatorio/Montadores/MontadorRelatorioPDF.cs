@@ -1,10 +1,30 @@
 using iTextSharp.text;
 using iTextSharp.text.pdf;
 
-namespace EM.Service.Montadores
+namespace EM.MontadorRelatorio.Montadores
 {
     public class MontadorRelatorioPDF : MontadorRelatorioAbstrato
     {
+        // Constantes para margens do documento
+        private const float MARGEM_SUPERIOR = 36f;
+        private const float MARGEM_INFERIOR = 36f;
+        private const float MARGEM_ESQUERDA = 36f;
+        private const float MARGEM_DIREITA = 36f;
+
+        // Constantes para tamanhos de fonte
+        private const int TAMANHO_FONTE_TITULO = 16;
+        private const int TAMANHO_FONTE_CABECALHO = 10;
+        private const int TAMANHO_FONTE_NORMAL = 10;
+        private const int TAMANHO_FONTE_RODAPE = 8;
+
+        // Constantes para cores
+        private static readonly BaseColor COR_CABECALHO_TABELA = new(238, 238, 238);
+        private static readonly BaseColor COR_TEXTO_PADRAO = new(0, 0, 0);
+
+        // Constantes para espaçamento
+        private const float PADDING_CELULA = 5f;
+        private const int PERCENTUAL_LARGURA_TABELA = 100;
+
         private readonly Document _document;
         private readonly PdfWriter _writer;
         private readonly MemoryStream _stream;
@@ -16,13 +36,13 @@ namespace EM.Service.Montadores
         public MontadorRelatorioPDF()
         {
             _stream = new MemoryStream();
-            _document = new Document(PageSize.A4, 36, 36, 36, 36);
+            _document = new Document(PageSize.A4, MARGEM_SUPERIOR, MARGEM_INFERIOR, MARGEM_ESQUERDA, MARGEM_DIREITA);
             _writer = PdfWriter.GetInstance(_document, _stream);
             
-            _fonteTitulo = new Font(Font.HELVETICA, 16, Font.BOLD);
-            _fonteCabecalho = new Font(Font.HELVETICA, 10, Font.BOLD);
-            _fonteNormal = new Font(Font.HELVETICA, 10, Font.NORMAL);
-            _fonteRodape = new Font(Font.HELVETICA, 8, Font.NORMAL);
+            _fonteTitulo = new Font(Font.HELVETICA, TAMANHO_FONTE_TITULO, Font.BOLD);
+            _fonteCabecalho = new Font(Font.HELVETICA, TAMANHO_FONTE_CABECALHO, Font.BOLD);
+            _fonteNormal = new Font(Font.HELVETICA, TAMANHO_FONTE_NORMAL, Font.NORMAL);
+            _fonteRodape = new Font(Font.HELVETICA, TAMANHO_FONTE_RODAPE, Font.NORMAL);
         }
 
         public override MontadorRelatorioAbstrato AdicionarTitulo(string titulo)
@@ -74,15 +94,15 @@ namespace EM.Service.Montadores
 
             PdfPTable tabela = new(cabecalhos.Length)
             {
-                WidthPercentage = 100
+                WidthPercentage = PERCENTUAL_LARGURA_TABELA
             };
             tabela.SetWidths(largurasColunas);
 
             Font fonteHeader = new(
                 Font.HELVETICA,
-                10,
+                TAMANHO_FONTE_CABECALHO,
                 Font.BOLD,
-                new BaseColor(0, 0, 0));
+                COR_TEXTO_PADRAO);
 
             foreach (string cabecalho in cabecalhos)
             {
@@ -126,7 +146,7 @@ namespace EM.Service.Montadores
             return this;
         }
 
-        public override byte[] Gerar()
+        public override byte[] Gera()
         {
             if (_document.IsOpen())
             {
@@ -142,12 +162,11 @@ namespace EM.Service.Montadores
             PdfPCell cell = new(new Phrase(texto, fonte));
             if (ehCabecalho)
             {
-                cell.BackgroundColor = new BaseColor(238, 238, 238);
+                cell.BackgroundColor = COR_CABECALHO_TABELA;
             }
-            cell.Padding = 5f;
+            cell.Padding = PADDING_CELULA;
             cell.HorizontalAlignment = Element.ALIGN_CENTER;
             tabela.AddCell(cell);
         }
     }
 }
-

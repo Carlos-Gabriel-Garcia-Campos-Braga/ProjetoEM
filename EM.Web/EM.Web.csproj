@@ -13,7 +13,7 @@
   <ItemGroup>
     <ProjectReference Include="..\EM.Domain\EM.Domain.csproj" />
     <ProjectReference Include="..\EM.Repository\EM.Repository.csproj" />
-    <ProjectReference Include="..\EM.Service\EM.Service.csproj" />
+    <ProjectReference Include="..\EM.MontadorRelatorio\EM.MontadorRelatorio.csproj" />
   </ItemGroup>
 
 </Project>

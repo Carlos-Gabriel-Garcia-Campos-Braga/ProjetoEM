@@ -1,7 +1,7 @@
 using EM.Domain;
 using EM.Domain.Interface;
 using EM.Domain.Utilitarios;
-using EM.Service.Interface;
+using EM.MontadorRelatorio.Interface;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
@@ -149,7 +149,7 @@ public class AlunoController(
         try
         {
             List<Aluno> alunos = _alunoRepository.OtenhaAlunos();
-            byte[] pdfBytes = _relatorioService.GerarRelatorioPDFAlunos(alunos);
+            byte[] pdfBytes = _relatorioService.GeraRelatorioPDFAlunos(alunos);
             
             Response.Headers.ContentDisposition = $"inline; filename=Relatorio_Alunos_{DateTime.Now:yyyyMMdd_HHmmss}.pdf";
             return File(pdfBytes, "application/pdf");

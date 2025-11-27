@@ -1,12 +1,12 @@
 using EM.Domain;
-using EM.Service.Interface;
-using EM.Service.Montadores;
+using EM.MontadorRelatorio.Interface;
+using EM.MontadorRelatorio.Montadores;
 
-namespace EM.Service.Services
+namespace EM.MontadorRelatorio.Services
 {
     public class RelatorioAlunoService : IRelatorioService
     {
-        public byte[] GerarRelatorioPDFAlunos(IEnumerable<Aluno> alunos)
+        public byte[] GeraRelatorioPDFAlunos(IEnumerable<Aluno> alunos)
         {
             MontadorRelatorioAbstrato montador = new MontadorRelatorioPDF();
 
@@ -41,7 +41,7 @@ namespace EM.Service.Services
 
             montador.AdicionarRodape("Sistema de Gerenciamento Escolar - ProjetoEM");
 
-            return montador.Gerar();
+            return montador.Gera();
         }
     }
 }

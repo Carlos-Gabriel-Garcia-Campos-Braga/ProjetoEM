@@ -1,4 +1,4 @@
-namespace EM.Service.Montadores
+namespace EM.MontadorRelatorio.Montadores
 {
     public abstract class MontadorRelatorioAbstrato
     {
@@ -12,7 +12,7 @@ namespace EM.Service.Montadores
             Func<T, string[]> obterLinhaDados);
         public abstract MontadorRelatorioAbstrato AdicionarMensagemSemDados(string mensagem);
         public abstract MontadorRelatorioAbstrato AdicionarRodape(string textoRodape);
-        public abstract byte[] Gerar();
+        public abstract byte[] Gera();
     }
 }
 

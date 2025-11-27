@@ -7,10 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Class1.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="iTextSharp.LGPLv2.Core" Version="1.7.1" />
   </ItemGroup>
 

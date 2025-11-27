@@ -1,14 +1,14 @@
-using EM.Repository.Banco;
 using EM.Domain.Interface;
+using EM.MontadorRelatorio.Interface;
+using EM.MontadorRelatorio.Services;
 using EM.Repository;
-using EM.Service.Interface;
-using EM.Service.Services;
-using System.Globalization;
+using EM.Repository.Banco;
 using Microsoft.AspNetCore.Localization;
+using System.Globalization;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
-CultureInfo[] supportedCultures = new[] { new CultureInfo("pt-BR") };
+CultureInfo[] supportedCultures = [new CultureInfo("pt-BR")];
 builder.Services.Configure<RequestLocalizationOptions>(options =>
 {
     options.DefaultRequestCulture = new RequestCulture("pt-BR");
@@ -21,7 +21,11 @@ builder.Services.AddControllersWithViews()
     .AddDataAnnotationsLocalization();
 
 
-string connectionString = builder.Configuration.GetConnectionString("FirebirdConnection");
+string? connectionString = builder.Configuration.GetConnectionString("FirebirdConnection");
+if (string.IsNullOrWhiteSpace(connectionString))
+{
+    throw new InvalidOperationException("Conexão com banco de dados não encontrada.");
+}
 builder.Services.AddSingleton(new FireBirdConnection(connectionString));
 
 // Repositories

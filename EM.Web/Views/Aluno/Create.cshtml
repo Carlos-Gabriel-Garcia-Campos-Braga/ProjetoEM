@@ -1,8 +1,7 @@
 @model EM.Domain.Aluno
 
 @{
-    ViewData["Title"] = Model?.Matricula > 0 ? "Editar Aluno" : "Adicionar Aluno";
-    var isEdit = Model?.Matricula > 0;
+    ViewData["Title"] = "Adicionar Aluno";
 }
 
 <div class="container mt-4">
@@ -13,14 +12,9 @@
             </h4>
         </div>
         <div class="card-body">
-            <form asp-action="@(isEdit ? "Edit" : "Create")" method="post">
+            <form asp-action="Create" method="post">
                 @Html.AntiForgeryToken()
                 <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
-
-                @if (isEdit)
-                {
-                    <input type="hidden" asp-for="Matricula" />
-                }
 
                 <div class="row">
                     <div class="col-md-6 mb-3">
@@ -38,10 +32,12 @@
 
                 <div class="row">
                     <div class="col-md-6 mb-3">
-                        <label asp-for="Cpf" class="form-label">CPF (opcional)</label>
+                        <label asp-for="Cpf" class="form-label">
+                            CPF (opcional)
+                            <span asp-validation-for="Cpf.Value" class="text-danger"></span>
+                        </label>
                         <input asp-for="Cpf.Value" class="form-control" placeholder="000.000.000-00" />
                         <small class="form-text text-muted">Deixe em branco se não possuir</small>
-                        <span asp-validation-for="Cpf" class="text-danger"></span>
                     </div>
 
                     <div class="col-md-6 mb-3">

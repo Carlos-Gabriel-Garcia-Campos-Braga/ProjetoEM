@@ -6,6 +6,8 @@ namespace EM.Domain.Interface
     {
         Aluno? OtenhaAlunoPorMatricula(int matricula);
 
+        Aluno? OtenhaAlunoPorCpf(string cpf);
+
         List<Aluno> OtenhaAlunosPorSexo(int sexoIdentificador);
 
         List<Aluno> OtenhaAlunos();

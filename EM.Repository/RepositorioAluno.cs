@@ -32,6 +32,40 @@ namespace EM.Repository
             return null;
         }
 
+        public Aluno? OtenhaAlunoPorCpf(string cpf)
+        {
+            if (string.IsNullOrWhiteSpace(cpf))
+            {
+                return null;
+            }
+
+            string cpfLimpo = CPF.RemoverFormatacao(cpf);
+            
+            if (string.IsNullOrWhiteSpace(cpfLimpo))
+            {
+                return null;
+            }
+
+            using FbConnection connection = _connection.CreateConnection();
+            using FbCommand command = new FbCommand(
+                @"SELECT A.MATRICULA, A.NOME, A.SEXO, A.CPF, A.DATA_NASCIMENTO,
+                         A.CIDADE_ID, C.ID, C.NOME_CIDADE, C.UF
+                         FROM TBALUNO A
+                         LEFT JOIN TBCIDADE C ON A.CIDADE_ID = C.ID
+                         WHERE TRIM(A.CPF) = TRIM(@CPF)", connection);
+            
+            command.Parameters.CreateParameter("@CPF", cpfLimpo);
+            
+            using FbDataReader reader = command.ExecuteReader();
+
+            if (reader.Read())
+            {
+                return MapAluno(reader);
+            }
+            
+            return null;
+        }
+
         public List<Aluno> OtenhaAlunosPorSexo(int sexoIdentificador)
         {
             List<Aluno> alunos = new List<Aluno>();

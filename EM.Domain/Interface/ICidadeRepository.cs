@@ -1,5 +1,3 @@
-using EM.Domain;
-
 namespace EM.Domain.Interface
 {
     public interface ICidadeRepository

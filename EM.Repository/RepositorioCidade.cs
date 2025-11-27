@@ -8,12 +8,12 @@ namespace EM.Repository
 {
     public class RepositorioCidade(FireBirdConnection connection) : ICidadeRepository
     {
-        private FireBirdConnection _connection = connection;
+        private readonly FireBirdConnection _connection = connection;
         
         public Cidade? ObtenhaCidade(int cod)
         {
             using FbConnection connection = _connection.CreateConnection();
-            using FbCommand command = new FbCommand(
+            using FbCommand command = new(
                 @"SELECT C.ID, C.NOME_CIDADE, C.UF
                           FROM TBCIDADE C
                           WHERE C.ID = @ID", connection);
@@ -21,20 +21,15 @@ namespace EM.Repository
             command.Parameters.CreateParameter("@ID", cod);
             using FbDataReader reader = command.ExecuteReader();
 
-            if (reader.Read())
-            {
-                return MapCidade(reader);
-            }
-            
-            return null;
+            return reader.Read() ? MapCidade(reader) : null;
         }
 
         public List<Cidade> ObtenhaTodasCidades()
         {
-            List<Cidade> cidades = new List<Cidade>();
+            List<Cidade> cidades = [];
             
             using FbConnection connection = _connection.CreateConnection();
-            using FbCommand command = new FbCommand(
+            using FbCommand command = new(
                 @"SELECT C.ID, C.NOME_CIDADE, C.UF
                   FROM TBCIDADE C
                   ORDER BY C.NOME_CIDADE", connection);
@@ -51,10 +46,10 @@ namespace EM.Repository
 
         public List<Cidade> ObtenhaCidadePorEstado(int cod)
         {
-            List<Cidade> cidades = new List<Cidade>();
+            List<Cidade> cidades = [];
             
             using FbConnection connection = _connection.CreateConnection();
-            using FbCommand command = new FbCommand(
+            using FbCommand command = new(
                 @"SELECT C.ID, C.NOME_CIDADE, C.UF
                   FROM TBCIDADE C
                   WHERE C.UF = @UF
@@ -75,7 +70,7 @@ namespace EM.Repository
         {
             using FbConnection connection = _connection.CreateConnection();
             
-            using FbCommand command = new FbCommand(
+            using FbCommand command = new(
                 @"INSERT INTO TBCIDADE (NOME_CIDADE, UF)
                   VALUES (@NOME_CIDADE, @UF)
                   RETURNING ID", connection);
@@ -92,7 +87,7 @@ namespace EM.Repository
         public Cidade AtualizarCidade(Cidade cidade)
         {
             using FbConnection connection = _connection.CreateConnection();
-            using FbCommand command = new FbCommand(
+            using FbCommand command = new(
                 @"UPDATE TBCIDADE
                   SET NOME_CIDADE = @NOME_CIDADE, UF = @UF
                   WHERE ID = @ID", connection);
@@ -109,7 +104,7 @@ namespace EM.Repository
         public bool DeletarCidade(int id)
         {
             using FbConnection connection = _connection.CreateConnection();
-            using FbCommand command = new FbCommand(
+            using FbCommand command = new(
                 @"DELETE FROM TBCIDADE
                   WHERE ID = @ID", connection);
             

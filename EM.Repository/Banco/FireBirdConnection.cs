@@ -8,7 +8,7 @@ namespace EM.Repository.Banco
 
         public FbConnection CreateConnection()
         {
-            FbConnection connection = new FbConnection(_connectionString);
+            FbConnection connection = new(_connectionString);
             connection.Open();
             return connection;
         }

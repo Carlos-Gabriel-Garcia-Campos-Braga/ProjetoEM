@@ -10,7 +10,7 @@ namespace EM.Repository.Banco
             dbParameter.Add(new FbParameter(parameterName, value));
         }
 
-        public static object? ToDb(this object? value) =>  value == null ? DBNull.Value : value;
+        public static object? ToDb(this object? value) => value ?? DBNull.Value;
     }
 }
 

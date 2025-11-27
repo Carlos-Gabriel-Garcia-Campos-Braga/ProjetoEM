@@ -6,35 +6,39 @@ namespace EM.Web.Services
     {
         public byte[] GerarRelatorioPDFAlunos(IEnumerable<Aluno> alunos)
         {
-            using MemoryStream stream = new MemoryStream();
-            iTextSharp.text.Document doc = new iTextSharp.text.Document(iTextSharp.text.PageSize.A4, 36, 36, 36, 36);
+            using MemoryStream stream = new();
+            iTextSharp.text.Document doc = new(iTextSharp.text.PageSize.A4, 36, 36, 36, 36);
             iTextSharp.text.pdf.PdfWriter writer = iTextSharp.text.pdf.PdfWriter.GetInstance(doc, stream);
             doc.Open();
 
-            iTextSharp.text.Font fonteTitulo = new iTextSharp.text.Font(iTextSharp.text.Font.HELVETICA, 16, iTextSharp.text.Font.BOLD);
-            iTextSharp.text.Font fonteCabecalho = new iTextSharp.text.Font(iTextSharp.text.Font.HELVETICA, 10, iTextSharp.text.Font.BOLD);
-            iTextSharp.text.Font fonteNormal = new iTextSharp.text.Font(iTextSharp.text.Font.HELVETICA, 10, iTextSharp.text.Font.NORMAL);
-            iTextSharp.text.Font fonteRodape = new iTextSharp.text.Font(iTextSharp.text.Font.HELVETICA, 8, iTextSharp.text.Font.NORMAL);
+            iTextSharp.text.Font fonteTitulo = new(iTextSharp.text.Font.HELVETICA, 16, iTextSharp.text.Font.BOLD);
+            iTextSharp.text.Font fonteCabecalho = new(iTextSharp.text.Font.HELVETICA, 10, iTextSharp.text.Font.BOLD);
+            iTextSharp.text.Font fonteNormal = new(iTextSharp.text.Font.HELVETICA, 10, iTextSharp.text.Font.NORMAL);
+            iTextSharp.text.Font fonteRodape = new(iTextSharp.text.Font.HELVETICA, 8, iTextSharp.text.Font.NORMAL);
 
-            iTextSharp.text.Paragraph paragrafoTitulo = new iTextSharp.text.Paragraph("RELATÓRIO DE ALUNOS", fonteTitulo);
-            paragrafoTitulo.Alignment = iTextSharp.text.Element.ALIGN_CENTER;
+            iTextSharp.text.Paragraph paragrafoTitulo = new("RELATÓRIO DE ALUNOS", fonteTitulo)
+            {
+                Alignment = iTextSharp.text.Element.ALIGN_CENTER
+            };
             doc.Add(paragrafoTitulo);
             doc.Add(new iTextSharp.text.Paragraph(" "));
 
-            iTextSharp.text.Paragraph paragrafoData = new iTextSharp.text.Paragraph($"Data: {DateTime.Now:dd/MM/yyyy HH:mm}", fonteNormal);
-            paragrafoData.Alignment = iTextSharp.text.Element.ALIGN_RIGHT;
+            iTextSharp.text.Paragraph paragrafoData = new($"Data: {DateTime.Now:dd/MM/yyyy HH:mm}", fonteNormal)
+            {
+                Alignment = iTextSharp.text.Element.ALIGN_RIGHT
+            };
             doc.Add(paragrafoData);
             doc.Add(new iTextSharp.text.Paragraph($"Total de Alunos: {alunos.Count()}", fonteNormal));
             doc.Add(new iTextSharp.text.Paragraph(" "));
 
             if (alunos.Any())
             {
-                iTextSharp.text.pdf.PdfPTable tabela = new iTextSharp.text.pdf.PdfPTable(6) { WidthPercentage = 100 };
+                iTextSharp.text.pdf.PdfPTable tabela = new(6) { WidthPercentage = 100 };
                 tabela.SetWidths(new float[] { 12, 28, 18, 12, 12, 18 });
 
                 void AdicionarCelula(string texto, iTextSharp.text.Font fonte, bool ehCabecalho = false)
                 {
-                    iTextSharp.text.pdf.PdfPCell cell = new iTextSharp.text.pdf.PdfPCell(new iTextSharp.text.Phrase(texto, fonte));
+                    iTextSharp.text.pdf.PdfPCell cell = new(new iTextSharp.text.Phrase(texto, fonte));
                     if (ehCabecalho)
                     {
                         cell.BackgroundColor = new iTextSharp.text.BaseColor(238, 238, 238);
@@ -46,13 +50,15 @@ namespace EM.Web.Services
 
                 void AdicionarCelulaTexto(string texto, iTextSharp.text.Font fonte, int alinhamento = iTextSharp.text.Element.ALIGN_LEFT)
                 {
-                    iTextSharp.text.pdf.PdfPCell cell = new iTextSharp.text.pdf.PdfPCell(new iTextSharp.text.Phrase(texto, fonte));
-                    cell.Padding = 5f;
-                    cell.HorizontalAlignment = alinhamento;
+                    iTextSharp.text.pdf.PdfPCell cell = new(new iTextSharp.text.Phrase(texto, fonte))
+                    {
+                        Padding = 5f,
+                        HorizontalAlignment = alinhamento
+                    };
                     tabela.AddCell(cell);
                 }
 
-                iTextSharp.text.Font fonteHeader = new iTextSharp.text.Font(
+                iTextSharp.text.Font fonteHeader = new(
                     iTextSharp.text.Font.HELVETICA,
                     10,
                     iTextSharp.text.Font.BOLD,
@@ -88,14 +94,18 @@ namespace EM.Web.Services
             }
             else
             {
-                iTextSharp.text.Paragraph paragrafoSemDados = new iTextSharp.text.Paragraph("Nenhum aluno cadastrado no sistema.", fonteNormal);
-                paragrafoSemDados.Alignment = iTextSharp.text.Element.ALIGN_CENTER;
+                iTextSharp.text.Paragraph paragrafoSemDados = new("Nenhum aluno cadastrado no sistema.", fonteNormal)
+                {
+                    Alignment = iTextSharp.text.Element.ALIGN_CENTER
+                };
                 doc.Add(paragrafoSemDados);
             }
 
             doc.Add(new iTextSharp.text.Paragraph(" "));
-            iTextSharp.text.Paragraph paragrafoRodape = new iTextSharp.text.Paragraph("Sistema de Gerenciamento Escolar - ProjetoEM", fonteRodape);
-            paragrafoRodape.Alignment = iTextSharp.text.Element.ALIGN_CENTER;
+            iTextSharp.text.Paragraph paragrafoRodape = new("Sistema de Gerenciamento Escolar - ProjetoEM", fonteRodape)
+            {
+                Alignment = iTextSharp.text.Element.ALIGN_CENTER
+            };
             doc.Add(paragrafoRodape);
 
             doc.Close();

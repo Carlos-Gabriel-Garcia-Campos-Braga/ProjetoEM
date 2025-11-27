@@ -8,12 +8,12 @@ namespace EM.Repository
 {
     public class RepositorioAluno(FireBirdConnection connection) : IAlunoRepository
     {
-        private FireBirdConnection _connection = connection;
+        private readonly FireBirdConnection _connection = connection;
         
         public Aluno? OtenhaAlunoPorMatricula(int matricula)
         {
             using FbConnection connection = _connection.CreateConnection();
-            using FbCommand command = new FbCommand(
+            using FbCommand command = new(
                 @"SELECT A.MATRICULA, A.NOME, A.SEXO, A.CPF, A.DATA_NASCIMENTO,
                          A.CIDADE_ID, C.ID, C.NOME_CIDADE, C.UF
                          FROM TBALUNO A
@@ -47,7 +47,7 @@ namespace EM.Repository
             }
 
             using FbConnection connection = _connection.CreateConnection();
-            using FbCommand command = new FbCommand(
+            using FbCommand command = new(
                 @"SELECT A.MATRICULA, A.NOME, A.SEXO, A.CPF, A.DATA_NASCIMENTO,
                          A.CIDADE_ID, C.ID, C.NOME_CIDADE, C.UF
                          FROM TBALUNO A
@@ -58,20 +58,15 @@ namespace EM.Repository
             
             using FbDataReader reader = command.ExecuteReader();
 
-            if (reader.Read())
-            {
-                return MapAluno(reader);
-            }
-            
-            return null;
+            return reader.Read() ? MapAluno(reader) : null;
         }
 
         public List<Aluno> OtenhaAlunosPorSexo(int sexoIdentificador)
         {
-            List<Aluno> alunos = new List<Aluno>();
+            List<Aluno> alunos = [];
             
             using FbConnection connection = _connection.CreateConnection();
-            using FbCommand command = new FbCommand(
+            using FbCommand command = new(
                 @"SELECT A.MATRICULA, A.NOME, A.SEXO, A.CPF, A.DATA_NASCIMENTO,
                          A.CIDADE_ID, C.ID, C.NOME_CIDADE, C.UF
                          FROM TBALUNO A
@@ -93,10 +88,10 @@ namespace EM.Repository
 
         public List<Aluno> OtenhaAlunos()
         {
-            List<Aluno> alunos = new List<Aluno>();
+            List<Aluno> alunos = [];
             
             using FbConnection connection = _connection.CreateConnection();
-            using FbCommand command = new FbCommand(
+            using FbCommand command = new(
                 @"SELECT A.MATRICULA, A.NOME, A.SEXO, A.CPF, A.DATA_NASCIMENTO,
                          A.CIDADE_ID, C.ID, C.NOME_CIDADE, C.UF
                          FROM TBALUNO A
@@ -115,10 +110,10 @@ namespace EM.Repository
 
         public List<Aluno> OtenhaAlunosPorCidade(int cidadeIdentificador)
         {
-            List<Aluno> alunos = new List<Aluno>();
+            List<Aluno> alunos = [];
             
             using FbConnection connection = _connection.CreateConnection();
-            using FbCommand command = new FbCommand(
+            using FbCommand command = new(
                 @"SELECT A.MATRICULA, A.NOME, A.SEXO, A.CPF, A.DATA_NASCIMENTO,
                          A.CIDADE_ID, C.ID, C.NOME_CIDADE, C.UF
                          FROM TBALUNO A
@@ -141,7 +136,7 @@ namespace EM.Repository
         public Aluno AdicionarAluno(Aluno aluno)
         {
             using FbConnection connection = _connection.CreateConnection();
-            using FbCommand command = new FbCommand(
+            using FbCommand command = new(
                 @"INSERT INTO TBALUNO (MATRICULA, NOME, SEXO, CPF, DATA_NASCIMENTO,
                                        CIDADE_ID)
                           VALUES (@MATRICULA, @NOME, @SEXO, @CPF, @DATA_NASCIMENTO,
@@ -162,7 +157,7 @@ namespace EM.Repository
         public Aluno AtualizarAluno(Aluno aluno)
         {
             using FbConnection connection = _connection.CreateConnection();
-            using FbCommand command = new FbCommand(
+            using FbCommand command = new(
                 @"UPDATE TBALUNO
                           SET NOME = @NOME, 
                               SEXO = @SEXO, 
@@ -186,7 +181,7 @@ namespace EM.Repository
         public bool DeletarAluno(int matricula)
         {
             using FbConnection connection = _connection.CreateConnection();
-            using FbCommand command = new FbCommand(
+            using FbCommand command = new(
                 @"DELETE FROM TBALUNO
                           WHERE MATRICULA = @MATRICULA", connection);
             
@@ -199,7 +194,7 @@ namespace EM.Repository
         
         private static Aluno MapAluno(FbDataReader reader)
         {
-            Aluno aluno = new Aluno
+            Aluno aluno = new()
             {
                 Matricula = reader.GetInt32(0),
                 Nome = reader.GetString(1),

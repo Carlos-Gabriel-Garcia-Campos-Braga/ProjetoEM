@@ -16,34 +16,28 @@ builder.Services.Configure<RequestLocalizationOptions>(options =>
     options.SupportedUICultures = supportedCultures;
 });
 
-// Add services to the container.
 builder.Services.AddControllersWithViews()
     .AddDataAnnotationsLocalization();
-
 
 string? connectionString = builder.Configuration.GetConnectionString("FirebirdConnection");
 if (string.IsNullOrWhiteSpace(connectionString))
 {
-    throw new InvalidOperationException("Conexão com banco de dados não encontrada.");
+    throw new InvalidOperationException("Conexï¿½o com banco de dados nï¿½o encontrada.");
 }
 builder.Services.AddSingleton(new FireBirdConnection(connectionString));
 
-// Repositories
 builder.Services.AddScoped<IAlunoRepository, RepositorioAluno>();
 builder.Services.AddScoped<ICidadeRepository, RepositorioCidade>();
 
-// Services
 builder.Services.AddScoped<IRelatorioService, RelatorioAlunoService>();
 
 WebApplication app = builder.Build();
 
 app.UseRequestLocalization();
 
-// Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Aluno/Index");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
 

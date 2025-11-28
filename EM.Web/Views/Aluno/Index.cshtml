@@ -116,7 +116,7 @@
                                     <td class="text-center">@aluno.Matricula</td>
                                     <td class="text-center">@aluno.Nome</td>
                                     <td class="text-center">@(string.IsNullOrWhiteSpace(aluno.Cpf?.CpfFormatado) ? "-" : aluno.Cpf.CpfFormatado)</td>
-                                    <td class="text-center">@(aluno.DataNascimento.HasValue ? aluno.DataNascimento.Value.ToString("dd/MM/yyyy") : "-")</td>
+                                    <td class="text-center">@aluno.DataNascimento.ToString("dd/MM/yyyy")</td>
                                     <td class="text-center">@aluno.Sexo</td>
                                     <td class="text-center">@(aluno.Cidade != null ? $"{aluno.Cidade.NomeDaCidade} - {aluno.Cidade.UF}" : "-")</td>
                                     <td class="text-center">
@@ -149,14 +149,50 @@
     @Html.AntiForgeryToken()
 </form>
 
+<div class="modal fade" id="modalConfirmarExclusao" tabindex="-1" aria-labelledby="modalConfirmarExclusaoLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalConfirmarExclusaoLabel">
+                    <i class="bi bi-exclamation-triangle text-warning"></i> Confirmar Exclusão
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Tem certeza que deseja excluir o aluno <strong id="nomeAlunoExclusao"></strong> (Matrícula: <strong id="matriculaExclusao"></strong>)?</p>
+                <p class="text-danger mb-0"><small>Esta ação não pode ser desfeita.</small></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                    <i class="bi bi-x-circle"></i> Cancelar
+                </button>
+                <button type="button" class="btn btn-danger" id="btnConfirmarExclusao">
+                    <i class="bi bi-trash"></i> Excluir
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
 @section Scripts {
     <script>
+        let matriculaParaExcluir = null;
+
         function confirmarExclusao(matricula, nome) {
-            if (confirm(`Tem certeza que deseja excluir o aluno "${nome}" (Matrícula: ${matricula})?`)) {
+            matriculaParaExcluir = matricula;
+            document.getElementById('nomeAlunoExclusao').textContent = nome;
+            document.getElementById('matriculaExclusao').textContent = matricula;
+            
+            const modal = new bootstrap.Modal(document.getElementById('modalConfirmarExclusao'));
+            modal.show();
+        }
+
+        document.getElementById('btnConfirmarExclusao').addEventListener('click', function() {
+            if (matriculaParaExcluir !== null) {
                 const form = document.getElementById('formExcluir');
-                form.action = '@Url.Action("Delete", "Aluno")?matricula=' + matricula;
+                form.action = '@Url.Action("Delete", "Aluno")?matricula=' + matriculaParaExcluir;
                 form.submit();
             }
-        }
+        });
     </script>
 }

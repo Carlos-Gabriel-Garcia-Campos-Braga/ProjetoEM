@@ -7,6 +7,12 @@ namespace EM.Domain.Utilitarios
 
         public static bool NomeDaCidadeEhValido(string nomeDaCidade) => 
             nomeDaCidade.Length >= 3 && nomeDaCidade.Length <= 100;
+
+        public static bool DataNascimentoEhValida(DateTime dataNascimento) => 
+            dataNascimento.Date < DateTime.Now.Date;
+
+        public static bool MatriculaEhValida(int matricula) => 
+            matricula > 0;
     }
 }
 

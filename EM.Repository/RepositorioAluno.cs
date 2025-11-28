@@ -146,7 +146,7 @@ namespace EM.Repository
             command.Parameters.CreateParameter("@NOME", aluno.Nome);
             command.Parameters.CreateParameter("@SEXO", (int)aluno.Sexo);
             command.Parameters.CreateParameter("@CPF", aluno.Cpf?.Value ?? (object)DBNull.Value);
-            command.Parameters.CreateParameter("@DATA_NASCIMENTO", aluno.DataNascimento.HasValue ? aluno.DataNascimento.Value.Date : (object)DBNull.Value);
+            command.Parameters.CreateParameter("@DATA_NASCIMENTO", aluno.DataNascimento.Date);
             command.Parameters.CreateParameter("@CIDADE_ID", aluno.CidadeId);
             
             command.ExecuteNonQuery();
@@ -170,7 +170,7 @@ namespace EM.Repository
             command.Parameters.CreateParameter("@NOME", aluno.Nome);
             command.Parameters.CreateParameter("@SEXO", (int)aluno.Sexo);
             command.Parameters.CreateParameter("@CPF", aluno.Cpf?.Value ?? (object)DBNull.Value);
-            command.Parameters.CreateParameter("@DATA_NASCIMENTO", aluno.DataNascimento.HasValue ? aluno.DataNascimento.Value.Date : (object)DBNull.Value);
+            command.Parameters.CreateParameter("@DATA_NASCIMENTO", aluno.DataNascimento.Date);
             command.Parameters.CreateParameter("@CIDADE_ID", aluno.CidadeId);
             
             command.ExecuteNonQuery();
@@ -200,7 +200,7 @@ namespace EM.Repository
                 Nome = reader.GetString(1),
                 Sexo = (Sexo)reader.GetInt32(2),
                 Cpf = reader.IsDBNull(3) ? null : new CPF(reader.GetString(3)),
-                DataNascimento = reader.IsDBNull(4) ? null : reader.GetDateTime(4),
+                DataNascimento = reader.GetDateTime(4),
                 CidadeId = reader.GetInt32(5)
             };
 

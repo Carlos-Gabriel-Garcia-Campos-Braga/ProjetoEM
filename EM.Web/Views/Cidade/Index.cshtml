@@ -63,14 +63,50 @@
     @Html.AntiForgeryToken()
 </form>
 
+<div class="modal fade" id="modalConfirmarExclusao" tabindex="-1" aria-labelledby="modalConfirmarExclusaoLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalConfirmarExclusaoLabel">
+                    <i class="bi bi-exclamation-triangle text-warning"></i> Confirmar Exclusão
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Tem certeza que deseja excluir a cidade <strong id="nomeCidadeExclusao"></strong> (ID: <strong id="idCidadeExclusao"></strong>)?</p>
+                <p class="text-danger mb-0"><small>Esta ação não pode ser desfeita.</small></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                    <i class="bi bi-x-circle"></i> Cancelar
+                </button>
+                <button type="button" class="btn btn-danger" id="btnConfirmarExclusao">
+                    <i class="bi bi-trash"></i> Excluir
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
 @section Scripts {
     <script>
+        let idParaExcluir = null;
+
         function confirmarExclusao(id, nome) {
-            if (confirm(`Tem certeza que deseja excluir a cidade "${nome}" (ID: ${id})?`)) {
+            idParaExcluir = id;
+            document.getElementById('nomeCidadeExclusao').textContent = nome;
+            document.getElementById('idCidadeExclusao').textContent = id;
+            
+            const modal = new bootstrap.Modal(document.getElementById('modalConfirmarExclusao'));
+            modal.show();
+        }
+
+        document.getElementById('btnConfirmarExclusao').addEventListener('click', function() {
+            if (idParaExcluir !== null) {
                 const form = document.getElementById('formExcluir');
-                form.action = '@Url.Action("Delete", "Cidade")/' + id;
+                form.action = '@Url.Action("Delete", "Cidade")/' + idParaExcluir;
                 form.submit();
             }
-        }
+        });
     </script>
 }

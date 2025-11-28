@@ -43,7 +43,7 @@ public class CidadeController(ICidadeRepository repositorio) : Controller
     [HttpGet]
     public IActionResult Edit(int id)
     {
-        Cidade cidade = _cidadeRepository.ObtenhaCidade(id);
+        Cidade? cidade = _cidadeRepository.ObtenhaCidade(id);
         if (cidade == null)
         {
             return NotFound();
@@ -89,7 +89,7 @@ public class CidadeController(ICidadeRepository repositorio) : Controller
     
     private bool ValidarCidade(Cidade cidade)
     {
-        if (string.IsNullOrWhiteSpace(cidade.NomeDaCidade) || !Validation.NomeDaCidadeEhValido(cidade.NomeDaCidade))
+        if (!Validation.NomeDaCidadeEhValido(cidade.NomeDaCidade))
         {
             ModelState.AddModelError("NomeDaCidade", "O nome da cidade deve ter entre 3 e 100 caracteres.");
             return false;
@@ -103,7 +103,7 @@ public class CidadeController(ICidadeRepository repositorio) : Controller
     {
         try
         {
-            Cidade cidade = _cidadeRepository.ObtenhaCidade(id);
+            Cidade? cidade = _cidadeRepository.ObtenhaCidade(id);
 
             if (cidade == null)
             {
@@ -153,7 +153,7 @@ public class CidadeController(ICidadeRepository repositorio) : Controller
                 return BadRequest("Dados da cidade são obrigatórios!");
             }
 
-            Cidade cidadeAdicionada = _cidadeRepository.AdicionarCidade(cidade);
+            Cidade? cidadeAdicionada = _cidadeRepository.AdicionarCidade(cidade);
             return CreatedAtAction(nameof(ObterPorId), new { id = cidadeAdicionada.Id }, cidadeAdicionada);
         }
         catch (Exception ex)
@@ -182,13 +182,13 @@ public class CidadeController(ICidadeRepository repositorio) : Controller
                 return BadRequest("O ID informado não corresponde à cidade!");
             }
 
-            Cidade cidadeExistente = _cidadeRepository.ObtenhaCidade(id);
+            Cidade? cidadeExistente = _cidadeRepository.ObtenhaCidade(id);
             if (cidadeExistente == null)
             {
                 return NotFound($"Cidade com ID {id} não encontrada!");
             }
 
-            Cidade cidadeAtualizada = _cidadeRepository.AtualizarCidade(cidade);
+            Cidade? cidadeAtualizada = _cidadeRepository.AtualizarCidade(cidade);
             return Ok(cidadeAtualizada);
         }
         catch (Exception ex)
@@ -202,7 +202,7 @@ public class CidadeController(ICidadeRepository repositorio) : Controller
     {
         try
         {
-            Cidade cidadeExistente = _cidadeRepository.ObtenhaCidade(id);
+            Cidade? cidadeExistente = _cidadeRepository.ObtenhaCidade(id);
             if (cidadeExistente == null)
             {
                 return NotFound($"Cidade com ID {id} não encontrada!");

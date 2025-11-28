@@ -23,29 +23,24 @@
                 }
 
                 <div class="row">
-                    @if (isEdit)
-                    {
-                        <div class="col-md-6 mb-3">
-                            <label asp-for="Id" class="form-label">ID *</label>
-                            <input asp-for="Id" class="form-control" type="number" readonly />
-                            <span asp-validation-for="Id" class="text-danger"></span>
-                        </div>
-                    }
-
-                    <div class="@(isEdit ? "col-md-6" : "col-md-12") mb-3">
-                        <label asp-for="NomeDaCidade" class="form-label">Nome da Cidade *</label>
+                    <div class="col-md-12 mb-3">
+                        <label asp-for="NomeDaCidade" class="form-label">
+                            Nome da Cidade *
+                            <span asp-validation-for="NomeDaCidade" class="text-danger"></span>
+                        </label>
                         <input asp-for="NomeDaCidade" class="form-control" required />
-                        <span asp-validation-for="NomeDaCidade" class="text-danger"></span>
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="col-md-12 mb-3">
-                        <label asp-for="UF" class="form-label">UF *</label>
+                        <label asp-for="UF" class="form-label">
+                            UF *
+                            <span asp-validation-for="UF" class="text-danger"></span>
+                        </label>
                         <select asp-for="UF" asp-items="ViewBag.UFList" class="form-select" required>
                             <option value="">Selecione uma UF</option>
                         </select>
-                        <span asp-validation-for="UF" class="text-danger"></span>
                     </div>
                 </div>
 

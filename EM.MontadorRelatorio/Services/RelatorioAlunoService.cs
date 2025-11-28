@@ -29,7 +29,7 @@ namespace EM.MontadorRelatorio.Services
                         aluno.Matricula.ToString(),
                         aluno.Nome ?? string.Empty,
                         aluno.Cpf?.CpfFormatado ?? "-",
-                        aluno.DataNascimento.HasValue ? aluno.DataNascimento.Value.ToString("dd/MM/yyyy") : "-",
+                        aluno.DataNascimento.ToString("dd/MM/yyyy"),
                         aluno.Sexo.ToString(),
                         aluno.Cidade != null ? $"{aluno.Cidade.NomeDaCidade} - {aluno.Cidade.UF}" : "-"
                     ]);

@@ -182,9 +182,28 @@ public class AlunoController(
     {
         bool isValid = true;
 
-        if (string.IsNullOrWhiteSpace(aluno.Nome) || !Validation.NomeEhValido(aluno.Nome))
+        if (!Validation.MatriculaEhValida(aluno.Matricula))
+        {
+            ModelState.AddModelError("Matricula", "A matrícula deve ser um número positivo.");
+            isValid = false;
+        }
+
+        if (!Validation.NomeEhValido(aluno.Nome))
         {
             ModelState.AddModelError("Nome", "O nome deve ter entre 3 e 100 caracteres.");
+            isValid = false;
+        }
+
+        if (!Validation.DataNascimentoEhValida(aluno.DataNascimento))
+        {
+            ModelState.AddModelError("DataNascimento", "Data de nascimento não pode ser maior ou igual a hoje.");
+            isValid = false;
+        }
+
+        Cidade? cidade = _cidadeRepository.ObtenhaCidade(aluno.CidadeId);
+        if (cidade == null)
+        {
+            ModelState.AddModelError("CidadeId", "A cidade informada não existe.");
             isValid = false;
         }
 

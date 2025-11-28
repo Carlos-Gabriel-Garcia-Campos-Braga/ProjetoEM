@@ -1,15 +1,27 @@
 using EM.Domain.Utilitarios;
+using System.ComponentModel.DataAnnotations;
 
 namespace EM.Domain
 {
     public class Aluno
     {
+        [Required(ErrorMessage = "O campo Matrícula é obrigatório.")]
         public int Matricula { get; set; }
+        
+        [Required(ErrorMessage = "O campo Nome é obrigatório.")]
         public string Nome { get; set; }
+        
         public CPF? Cpf { get; set; }
-        public DateTime? DataNascimento { get; set; }
+        
+        [Required(ErrorMessage = "O campo Data de Nascimento é obrigatório.")]
+        public DateTime DataNascimento { get; set; }
+        
+        [Required(ErrorMessage = "O campo Sexo é obrigatório.")]
         public Sexo Sexo { get; set; }
+        
+        [Required(ErrorMessage = "O campo Cidade é obrigatório.")]
         public int CidadeId { get; set; }
+        
         public Cidade? Cidade { get; set; }
 
         public Aluno()

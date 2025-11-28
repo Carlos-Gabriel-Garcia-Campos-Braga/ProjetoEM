@@ -1,6 +1,7 @@
 using EM.Domain;
 using EM.Domain.Interface;
 using EM.Domain.Utilitarios;
+using FirebirdSql.Data.FirebirdClient;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
@@ -78,8 +79,35 @@ public class CidadeController(ICidadeRepository repositorio) : Controller
     [ValidateAntiForgeryToken]
     public IActionResult Delete(int id)
     {
-        _cidadeRepository.DeletarCidade(id);
-        return RedirectToAction(nameof(Index));
+        try
+        {
+            bool deletado = _cidadeRepository.DeletarCidade(id);
+            if (!deletado)
+            {
+                TempData["Erro"] = "Não foi possível excluir a cidade.";
+                return RedirectToAction(nameof(Index));
+            }
+            return RedirectToAction(nameof(Index));
+        }
+        catch (FbException ex)
+        {
+            if (ex.Message.Contains("violation of FOREIGN KEY") || 
+                ex.Message.Contains("foreign key") || 
+                ex.Message.Contains("REFERENCE"))
+            {
+                TempData["ErroForeignKey"] = "Não é possível excluir a cidade pois possui um aluno vinculado a ela.";
+            }
+            else
+            {
+                TempData["Erro"] = $"Erro ao excluir cidade: {ex.Message}";
+            }
+            return RedirectToAction(nameof(Index));
+        }
+        catch (Exception ex)
+        {
+            TempData["Erro"] = $"Erro ao excluir cidade: {ex.Message}";
+            return RedirectToAction(nameof(Index));
+        }
     }
     
     private void CarregarDadosViewBag(Cidade? cidade)

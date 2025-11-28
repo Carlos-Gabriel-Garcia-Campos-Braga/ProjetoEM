@@ -82,26 +82,40 @@
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
     <script>
-        $(document).ready(function() {
-            $('#btnSalvar').on('click', function(e) {
-                e.preventDefault();
-                var form = $(this).closest('form');
-                
-                if (form.valid()) {
-                    var modal = new bootstrap.Modal(document.getElementById('modalConfirmarOperacao'));
-                    modal.show();
-                } else {
-                    form.submit();
-                }
-            });
+        document.addEventListener('DOMContentLoaded', function() {
+            const btnSalvar = document.getElementById('btnSalvar');
+            if (btnSalvar) {
+                btnSalvar.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const form = this.closest('form');
+                    const isValid = form.checkValidity();
+                    
+                    if (isValid) {
+                        const modalElement = document.getElementById('modalConfirmarOperacao');
+                        if (modalElement) {
+                            const modal = new bootstrap.Modal(modalElement);
+                            modal.show();
+                        }
+                    } else {
+                        form.reportValidity();
+                    }
+                });
+            }
 
-            $('#btnConfirmarOperacao').on('click', function() {
-                var form = $('#btnSalvar').closest('form');
-                form.off('submit');
-                form.submit();
-            });
+            const btnConfirmarOperacao = document.getElementById('btnConfirmarOperacao');
+            if (btnConfirmarOperacao) {
+                btnConfirmarOperacao.addEventListener('click', function() {
+                    const btnSalvar = document.getElementById('btnSalvar');
+                    if (btnSalvar) {
+                        const form = btnSalvar.closest('form');
+                        if (form) {
+                            btnSalvar.disabled = true;
+                            form.submit();
+                        }
+                    }
+                });
+            }
         });
     </script>
 }

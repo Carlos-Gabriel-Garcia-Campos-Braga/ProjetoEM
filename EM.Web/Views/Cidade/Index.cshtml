@@ -5,6 +5,22 @@
 }
 
 <div class="container mt-4">
+    @if (TempData["ErroForeignKey"] != null)
+    {
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong><i class="bi bi-exclamation-triangle"></i> Erro!</strong>
+            @TempData["ErroForeignKey"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+    @if (TempData["Erro"] != null)
+    {
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong><i class="bi bi-exclamation-triangle"></i> Erro!</strong>
+            @TempData["Erro"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h2 class="text-primary">Gerenciar Cidades</h2>
         <a asp-action="Create" class="btn btn-primary">
@@ -88,6 +104,27 @@
     </div>
 </div>
 
+<div class="modal fade" id="modalErroForeignKey" tabindex="-1" aria-labelledby="modalErroForeignKeyLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header bg-danger text-white">
+                <h5 class="modal-title" id="modalErroForeignKeyLabel">
+                    <i class="bi bi-exclamation-triangle"></i> Erro ao Excluir
+                </h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p class="mb-0">Não é possível excluir a cidade pois possui um aluno vinculado a ela.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                    <i class="bi bi-check-circle"></i> Entendi
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
 @section Scripts {
     <script>
         let idParaExcluir = null;
@@ -106,6 +143,14 @@
                 const form = document.getElementById('formExcluir');
                 form.action = '@Url.Action("Delete", "Cidade")/' + idParaExcluir;
                 form.submit();
+            }
+        });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const erroForeignKey = '@TempData["ErroForeignKey"]';
+            if (erroForeignKey && erroForeignKey !== '') {
+                const modalErro = new bootstrap.Modal(document.getElementById('modalErroForeignKey'));
+                modalErro.show();
             }
         });
     </script>

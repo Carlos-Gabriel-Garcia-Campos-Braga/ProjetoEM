@@ -5,23 +5,18 @@ namespace EM.MontadorRelatorio.Montadores
 {
     public class MontadorRelatorioPDF : MontadorRelatorioAbstrato
     {
-        // Constantes para margens do documento
         private const float MARGEM_SUPERIOR = 36f;
         private const float MARGEM_INFERIOR = 36f;
         private const float MARGEM_ESQUERDA = 36f;
         private const float MARGEM_DIREITA = 36f;
 
-        // Constantes para tamanhos de fonte
         private const int TAMANHO_FONTE_TITULO = 16;
         private const int TAMANHO_FONTE_CABECALHO = 10;
         private const int TAMANHO_FONTE_NORMAL = 10;
         private const int TAMANHO_FONTE_RODAPE = 8;
 
-        // Constantes para cores
         private static readonly BaseColor COR_CABECALHO_TABELA = new(238, 238, 238);
-        private static readonly BaseColor COR_TEXTO_PADRAO = new(0, 0, 0);
 
-        // Constantes para espaçamento
         private const float PADDING_CELULA = 5f;
         private const int PERCENTUAL_LARGURA_TABELA = 100;
 
@@ -98,15 +93,9 @@ namespace EM.MontadorRelatorio.Montadores
             };
             tabela.SetWidths(largurasColunas);
 
-            Font fonteHeader = new(
-                Font.HELVETICA,
-                TAMANHO_FONTE_CABECALHO,
-                Font.BOLD,
-                COR_TEXTO_PADRAO);
-
             foreach (string cabecalho in cabecalhos)
             {
-                AdicionarCelulaTabela(tabela, cabecalho, fonteHeader, true);
+                AdicionarCelulaTabela(tabela, cabecalho, _fonteCabecalho, true);
             }
 
             foreach (T item in dados)

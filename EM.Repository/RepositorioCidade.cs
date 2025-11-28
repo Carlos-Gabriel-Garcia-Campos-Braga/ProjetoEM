@@ -1,8 +1,8 @@
-using FirebirdSql.Data.FirebirdClient;
 using EM.Domain;
 using EM.Domain.Interface;
 using EM.Domain.Utilitarios;
 using EM.Repository.Banco;
+using FirebirdSql.Data.FirebirdClient;
 
 namespace EM.Repository
 {

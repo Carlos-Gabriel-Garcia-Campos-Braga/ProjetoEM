@@ -1,8 +1,8 @@
-using Microsoft.AspNetCore.Mvc;
-using EM.Domain.Interface;
 using EM.Domain;
-using Microsoft.AspNetCore.Mvc.Rendering;
+using EM.Domain.Interface;
 using EM.Domain.Utilitarios;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace EM.Web.Controllers;
 

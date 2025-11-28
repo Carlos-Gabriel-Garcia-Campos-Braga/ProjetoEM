@@ -149,6 +149,12 @@ public class AlunoController(
         try
         {
             List<Aluno> alunos = _alunoRepository.OtenhaAlunos();
+            
+            if (alunos.Count == 0)
+            {
+                return Json(new { sucesso = false, mensagem = "Relatório não emitido: Nenhum registro foi encontrado." });
+            }
+            
             byte[] pdfBytes = _relatorioService.GeraRelatorioPDFAlunos(alunos);
             
             Response.Headers.ContentDisposition = $"inline; filename=Relatorio_Alunos_{DateTime.Now:yyyyMMdd_HHmmss}.pdf";

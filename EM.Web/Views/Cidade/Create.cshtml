@@ -48,7 +48,7 @@
                     <a asp-action="Index" class="btn btn-secondary">
                         <i class="bi bi-arrow-left"></i> Cancelar
                     </a>
-                    <button type="submit" class="btn btn-primary">
+                    <button type="button" id="btnSalvar" class="btn btn-primary">
                         <i class="bi bi-check-circle"></i> Salvar
                     </button>
                 </div>
@@ -57,6 +57,51 @@
     </div>
 </div>
 
+<div class="modal fade" id="modalConfirmarOperacao" tabindex="-1" aria-labelledby="modalConfirmarOperacaoLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header bg-primary text-white">
+                <h5 class="modal-title" id="modalConfirmarOperacaoLabel">
+                    <i class="bi bi-question-circle"></i> Confirmar Operação
+                </h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p class="mb-0">Confirmar a operação?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                    <i class="bi bi-x-circle"></i> Cancelar
+                </button>
+                <button type="button" class="btn btn-primary" id="btnConfirmarOperacao">
+                    <i class="bi bi-check-circle"></i> Confirmar
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        $(document).ready(function() {
+            $('#btnSalvar').on('click', function(e) {
+                e.preventDefault();
+                var form = $(this).closest('form');
+                
+                if (form.valid()) {
+                    var modal = new bootstrap.Modal(document.getElementById('modalConfirmarOperacao'));
+                    modal.show();
+                } else {
+                    form.submit();
+                }
+            });
+
+            $('#btnConfirmarOperacao').on('click', function() {
+                var form = $('#btnSalvar').closest('form');
+                form.off('submit');
+                form.submit();
+            });
+        });
+    </script>
 }

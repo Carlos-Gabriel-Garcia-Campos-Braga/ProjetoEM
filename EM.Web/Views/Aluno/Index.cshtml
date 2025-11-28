@@ -16,9 +16,9 @@
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h2 class="text-primary">Gerenciar Alunos</h2>
         <div class="d-flex gap-2">
-            <a asp-action="GerarRelatorio" class="btn btn-danger" target="_blank">
+            <button type="button" id="btnGerarRelatorio" class="btn btn-danger">
                 <i class="bi bi-file-pdf"></i> Gerar Relatório PDF
-            </a>
+            </button>
             <a asp-action="Create" class="btn btn-primary">
                 <i class="bi bi-plus-circle"></i> Adicionar Aluno
             </a>
@@ -44,7 +44,14 @@
                             {
                                 @foreach (EM.Domain.Utilitarios.Sexo sexoItem in ViewBag.SexoList)
                                 {
-                                    <option value="@((int)sexoItem)" selected="@(ViewBag.SexoFiltro == (int)sexoItem)">@sexoItem</option>
+                                    @if (ViewBag.SexoFiltro != null && ViewBag.SexoFiltro == (int)sexoItem)
+                                    {
+                                        <option value="@((int)sexoItem)" selected>@sexoItem</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="@((int)sexoItem)">@sexoItem</option>
+                                    }
                                 }
                             }
                         </select>
@@ -57,7 +64,14 @@
                             {
                                 @foreach (EM.Domain.Cidade cidade in ViewBag.CidadeList)
                                 {
-                                    <option value="@cidade.Id" selected="@(ViewBag.CidadeFiltro == cidade.Id)">@cidade.NomeDaCidade - @cidade.UF</option>
+                                    @if (ViewBag.CidadeFiltro != null && ViewBag.CidadeFiltro == cidade.Id)
+                                    {
+                                        <option value="@cidade.Id" selected>@cidade.NomeDaCidade - @cidade.UF</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="@cidade.Id">@cidade.NomeDaCidade - @cidade.UF</option>
+                                    }
                                 }
                             }
                         </select>
@@ -70,7 +84,14 @@
                             {
                                 @foreach (EM.Domain.Utilitarios.UF ufItem in ViewBag.UFList)
                                 {
-                                    <option value="@((int)ufItem)" selected="@(ViewBag.UFFiltro == (int)ufItem)">@ufItem</option>
+                                    @if (ViewBag.UFFiltro != null && ViewBag.UFFiltro == (int)ufItem)
+                                    {
+                                        <option value="@((int)ufItem)" selected>@ufItem</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="@((int)ufItem)">@ufItem</option>
+                                    }
                                 }
                             }
                         </select>
@@ -174,6 +195,27 @@
     </div>
 </div>
 
+<div class="modal fade" id="modalSemRegistros" tabindex="-1" aria-labelledby="modalSemRegistrosLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header bg-warning">
+                <h5 class="modal-title" id="modalSemRegistrosLabel">
+                    <i class="bi bi-exclamation-triangle"></i> Aviso
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p class="mb-0">Relatório não emitido: Nenhum registro foi encontrado.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                    <i class="bi bi-arrow-left"></i> Voltar
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
 @section Scripts {
     <script>
         let matriculaParaExcluir = null;
@@ -193,6 +235,40 @@
                 form.action = '@Url.Action("Delete", "Aluno")?matricula=' + matriculaParaExcluir;
                 form.submit();
             }
+        });
+
+        document.getElementById('btnGerarRelatorio').addEventListener('click', function() {
+            fetch('@Url.Action("GerarRelatorio", "Aluno")', {
+                method: 'GET',
+                headers: {
+                    'Accept': 'application/json'
+                }
+            })
+            .then(response => {
+                if (response.headers.get('content-type')?.includes('application/json')) {
+                    return response.json();
+                } else {
+                    return response.blob().then(blob => {
+                        const url = window.URL.createObjectURL(blob);
+                        const a = document.createElement('a');
+                        a.href = url;
+                        a.target = '_blank';
+                        a.rel = 'noopener noreferrer';
+                        a.click();
+                        window.URL.revokeObjectURL(url);
+                        return { sucesso: true };
+                    });
+                }
+            })
+            .then(data => {
+                if (!data.sucesso) {
+                    const modal = new bootstrap.Modal(document.getElementById('modalSemRegistros'));
+                    modal.show();
+                }
+            })
+            .catch(error => {
+                console.error('Erro ao gerar relatório:', error);
+            });
         });
     </script>
 }
